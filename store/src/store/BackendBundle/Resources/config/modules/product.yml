@@ -1,0 +1,13 @@
+#Page list of product
+store_backend_product_list:
+    path:     /list
+    defaults: { _controller: storeBackendBundle:Product:list } #NomduBundle:NomduControlleur:Nomdel'Action#Page list of product
+
+#Page view a product
+store_backend_product_view:
+    path:     /view/{id}/{name}
+    defaults: { _controller: storeBackendBundle:Product:view } #NomduBundle:NomduControlleur:Nomdel'Action
+    requirements:
+      id: \d+
+      name: "[a-zA-Z0-9-]{5,30}"
+      _method: GET

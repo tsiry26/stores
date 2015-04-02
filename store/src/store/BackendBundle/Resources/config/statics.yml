@@ -1,0 +1,19 @@
+# page Static Contact
+store_backend_statics_contact:
+    path:     /contact
+    defaults: { _controller: storeBackendBundle:Statics:contact } #NomduBundle:NomduControlleur:Nomdel'Action
+
+# page Static Concept
+store_backend_statics_concept:
+    path:     /concept
+    defaults: { _controller: storeBackendBundle:Statics:concept }
+
+# page Static About
+store_backend_statics_about:
+    path:     /about
+    defaults: { _controller: storeBackendBundle:Statics:about }
+
+# page Static terms
+store_backend_statics_terms:
+    path:     /terms
+    defaults: { _controller: storeBackendBundle:Statics:terms }

@@ -17,6 +17,6 @@ class MainController extends Controller
      */
     public function indexAction()
    {
-      return $this->render('storeBackendBundle:Main:index.html.twig');
+      return $this->render('storeBackendBundle:Main:index.html.twig'); #Main => nom du dossier
    }
 }
