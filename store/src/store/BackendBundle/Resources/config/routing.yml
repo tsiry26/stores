@@ -28,6 +28,6 @@ store_backend_cms:
     prefix: /cms
 
 #Pages supplier
-store_backend_supplers:
+store_backend_suppliers:
     resource: "@storeBackendBundle/Resources/config/modules/supplier.yml"
     prefix: /suppliers

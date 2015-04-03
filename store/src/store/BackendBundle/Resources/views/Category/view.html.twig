@@ -1,2 +1,7 @@
-<h3>Ma catégorie : {{ id }}</h3>
-<p>nom de la catégorie : {{ nom }}</p>
+{% extends "storeBackendBundle::layout.html.twig" %}
+{% block titlepage %}
+{% endblock %}
+{% block content %}
+    <h3>Ma catégorie : {{ id }}</h3>
+    <p>nom de la catégorie : {{ nom }}</p>
+{% endblock %}

@@ -1,5 +1,5 @@
 #Page list of supplier
-store_backend_category_list:
+store_backend_supplier_list:
     path:     /list
     defaults: { _controller: storeBackendBundle:Supplier:list } #NomduBundle:NomduControlleur:Nomdel'Action
 
