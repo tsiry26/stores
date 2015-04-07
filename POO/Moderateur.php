@@ -65,4 +65,8 @@ class Moderateur extends User
         return $this->etoile;
     }
 
+    public function blamer(User $user)
+    {
+        return $this->nom. " a blamé". $user->nom;
+    }
 }

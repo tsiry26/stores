@@ -9,11 +9,15 @@
         <CLASSES>
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
+          <root url="phar://$MODULE_DIR$/classe/poo/composer.phar" />
+          <root url="phar://$MODULE_DIR$/symfony/store-2/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/composer.phar" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
+          <root url="phar://$MODULE_DIR$/classe/poo/composer.phar" />
+          <root url="phar://$MODULE_DIR$/symfony/store-2/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/composer.phar" />
         </SOURCES>
       </library>

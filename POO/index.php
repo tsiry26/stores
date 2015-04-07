@@ -1,6 +1,16 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
 <?php
 //inclusion de fichier
 include "Moderateur.php";
+include "Editeur.php";
+include "Commercial.php";
+include "Ecrivain.php";
 
 //création de 3 objets User
 $user1 = new User('Perrotton', 'Elodie','elodie.perrotton@gmail.com',29);
@@ -76,3 +86,66 @@ echo $moderateur1->getPrenom();
 echo '<br/>';
 echo $moderateur1->getDescription();
 
+echo '<br/>';
+$editeur1=new Editeur("RAVALOSON","Tsiry","nialy@live.fr", "presse");
+$editeur2=new Editeur("RALISON","Tsiory","ralisontsiory@live.fr", "presse");
+$editeur3=new Editeur("RAJAONARIVONY","Tita","rajaonarivonytita@live.fr", "presse");
+
+echo $editeur1->getNom();
+echo '<br/>';
+echo $editeur1->getEmail();
+echo '<br/>';
+echo $editeur1->getAge();
+echo '<br/>';
+echo $editeur1->getPresse();
+echo '<br/>';
+echo $editeur2->getNom();
+echo '<br/>';
+echo $editeur2->getEmail();
+echo '<br/>';
+echo $editeur2->getAge();
+echo '<br/>';
+echo $editeur2->getPresse();
+echo '<br/>';
+echo $editeur3->getNom();
+echo '<br/>';
+echo $editeur3->getEmail();
+echo '<br/>';
+$editeur3->setAge(13);
+echo $editeur3->getAge();
+echo '<br/>';
+echo $editeur3->getPresse();
+echo '<br/>';
+
+$commercial1=new Commercial("RAVALOSON","Tsiry","nialy@live.fr", "Cachan","expert");
+echo "Point de Vente : ".$commercial1->getMag();
+echo "<br/>";
+echo $commercial1->repondre($editeur1);
+echo "<br/>";
+echo $commercial1->noter(8);
+echo "<br/>";
+echo $editeur1->noter(5);
+echo"<br/>";
+echo"<br/>";
+echo $moderateur1->blamer($user1);
+$ecrivain1=new Ecrivain();
+$ecrivain1->setNom("Boyer");
+$ecrivain1->setPrenom("Julien");
+$ecrivain1->setAge(31);
+$ecrivain1->setEmail("boyerjulien@gmail.com");
+echo "<br />";
+echo $ecrivain1->getNom();
+echo"<br />";
+$ecrivain2=new Ecrivain();
+$ecrivain2->setNom("JOHNE");
+$ecrivain2->setPrenom("Ludo");
+$ecrivain2->setAge(24);
+$ecrivain2->setEmail("johnludo@gmail.com");
+echo"<br />";
+echo $ecrivain2->getNom();
+echo "<br />";
+echo $ecrivain1->deconnexion();
+?>
+</div>
+</body>
+</html>

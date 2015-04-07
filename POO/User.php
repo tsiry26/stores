@@ -1,9 +1,11 @@
 <?php
-
+include "AbstractUser.php";
+include "AuthentificationInterface.php";
+include "InscriptionInterface.php";
 /**
  * Class User
  */
-class User {
+class User extends AbstractUser implements AuthentificationInterface, InscriptionInterface {
     /**
      * @var nom
      */
@@ -31,20 +33,6 @@ class User {
      */
     const LANGUES = "Français";
 
-    /**
-     * Methode pour commenter
-     */
-    public function commenter(){
-        echo $this->nom."a commenté!";
-    }
-
-    /**
-     * Repondre à un autre utilisateur
-     * @param User $user
-     */
-    public function repondre(User $user){
-        echo $this->nom. "a répondre au commentaire de".$user->nom;
-    }
 
     /**
      * Constructeur qui prend 4 paramètres
@@ -53,7 +41,7 @@ class User {
      * @param $email
      * @param $age
      */
-    public function __construct($nom, $prenom, $email, $age){
+    public function __construct($nom, $prenom, $email, $age=26){
 
         $this->nom = $nom;
         $this->prenom = $prenom;
@@ -61,6 +49,55 @@ class User {
         $this->age = $age;
 
     }
+
+    /**
+     * désinscription
+     * @return mixed
+     */
+    public function désinscription()
+    {
+        // TODO: Implement désinscription() method.
+    }
+
+
+    /**
+     * set Last Login
+     * @param $date
+     * @return mixed
+     */
+    public function setLastLogin($date)
+    {
+        // TODO: Implement setLastLogin() method.
+    }
+
+    /**
+     * Get Last Login
+     * @return mixed
+     */
+    public function getLastLogin()
+    {
+        // TODO: Implement getLastLogin() method.
+    }
+
+    /**
+     * Set Date Created
+     * @param $date
+     * @return mixed
+     */
+    public function setDateCreated($date)
+    {
+        // TODO: Implement setDateCreated() method.
+    }
+
+    /**
+     * Get Date Created
+     * @return mixed
+     */
+    public function getDateCreated()
+    {
+        // TODO: Implement getDateCreated() method.
+    }
+
 
     /**
      * @param \age $age
@@ -79,20 +116,26 @@ class User {
     }
 
     /**
-     * @param \email $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return \email
+     * get mail
+     * @return mixed
      */
     public function getEmail()
     {
-        return $this->email;
+        // TODO: Implement getEmail() method.
+        return $this -> email;
     }
+
+    /**
+     * set email
+     * il faut parametrer la variable email dans la classe abstraite
+     * @return mixed
+     */
+    public function setEmail($email)
+    {
+        // TODO: Implement setEmail() method.
+        $this -> email = $email;
+    }
+
 
     /**
      * @param \nom $nom
@@ -126,5 +169,66 @@ class User {
         return $this->prenom;
     }
 
+    /**
+     * get genre
+     * @return mixed
+     */
+    public function getGenre()
+    {
+        // TODO: Implement getGenre() method.
+        return $this->genre;
+    }
+
+    /**
+     * set genre
+     * @param $genre
+     * @return mixed
+     */
+    public function setGenre($genre)
+    {
+        // TODO: Implement setGenre() method.
+        $this -> genre = $genre;
+    }
+
+    /**
+     * Methode pour commenter
+     */
+    public function commenter(){
+        echo $this->nom."a commenté!";
+    }
+
+    /**
+     * Repondre à un autre utilisateur
+     * @param User $user
+     */
+    public function repondre(User $user){
+        echo $this->nom. "a répondre au commentaire de".$user->nom;
+    }
+
+    /**
+     * Méthode noter
+     */
+    public function noter(){
+        return $this->nom." a noté!";
+    }
+
+    /**
+     * chacune des classes doit implémenter sa propre inscription
+     * @return mixed
+     */
+    public function inscription()
+    {
+        // TODO: Implement inscription() method.
+        return "L'utilisateur ".$this->nom." s'est bien inscrit";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function connexion()
+    {
+        // TODO: Implement connexion() method.
+        return "L'utilisateur ".$this->nom." s'est bien connecté";
+    }
 
 } 
