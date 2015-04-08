@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wac32
- * Date: 07/04/15
- * Time: 12:56
- */
+namespace Application;
 
 class Ecrivain extends AbstractUser {
     /**

@@ -1,6 +1,49 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
 {% block titlepage %}
+    <i class="fa fa-bookmark"></i> Liste de mes Produits
 {% endblock %}
 {% block content %}
-    <h1>liste des Produits</h1>
+    {% for product in products %}
+        <p><h3>{{ product.title }} - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
+        {% if product.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+
+        </h3><sub>{{ product.ref }}</sub> {#affiche la référence du produit#}
+        </p>
+        {#{{ dump (product) }}#} {#deboguer une variable#}
+        <p>{{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        <p>{{ product.quantity }}</p>
+        <p>{{ product.taxe }}</p>
+        <p>{{ product.composition }}</p>
+        <p>Nom de la boutique de mon produit : {{ product.jeweler.title }}</p>
+        <p>Description de la boutique de mon produit : {{ product.jeweler.description }}</p>
+        <h5>Promotions</h5>
+        <ul>
+            {% for business in product.business %}
+                <li>
+                    Montant:{{ business.amount }}
+                    Message:{{ business.message }}
+                </li>
+            {% endfor %}
+        </ul>
+        <h5>CMS</h5>
+        <ul>
+            {% for cms in product.cms %}
+                <li>
+                    Titre CMS :{{ cms.title }}
+                </li>
+            {% endfor %}
+        </ul>
+        <h5>Summary</h5>
+        <p> {{ product.summary }}</p>
+        <p>Quantity : {{ product.quantity }}</p>
+
+
+    {% else %} {#si Aucun Produit#}
+        <div class="alert alert-dark">Aucun Produit</div>
+    {% endfor %}
 {% endblock %}

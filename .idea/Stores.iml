@@ -12,6 +12,7 @@
           <root url="phar://$MODULE_DIR$/classe/poo/composer.phar" />
           <root url="phar://$MODULE_DIR$/symfony/store-2/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/composer.phar" />
+          <root url="phar://$MODULE_DIR$/POO/composer.phar" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/composer.phar" />
@@ -19,6 +20,7 @@
           <root url="phar://$MODULE_DIR$/classe/poo/composer.phar" />
           <root url="phar://$MODULE_DIR$/symfony/store-2/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/composer.phar" />
+          <root url="phar://$MODULE_DIR$/POO/composer.phar" />
         </SOURCES>
       </library>
     </orderEntry>

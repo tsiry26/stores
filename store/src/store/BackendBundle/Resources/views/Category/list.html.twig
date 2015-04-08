@@ -1,6 +1,23 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
 {% block titlepage %}
+    <i class="fa fa-bookmark"></i> Liste Category
 {% endblock %}
 {% block content %}
-    <h3>liste category</h3>
+    {% for category in categories %}
+        <p><h3>{{ category.title }}
+        {% if category.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3></p>
+        <h4>Description</h4>
+        <p>{{ category.description }}</p>
+        <h4>Liste des Jeweler</h4>
+        <ul>
+            {% for jeweler in category.jeweler %}
+                <li>{{ jeweler.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 {% endblock %}

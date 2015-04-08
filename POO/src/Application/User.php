@@ -1,7 +1,10 @@
 <?php
-include "AbstractUser.php";
+
+namespace Application;
+
+/*include "AbstractUser.php";
 include "AuthentificationInterface.php";
-include "InscriptionInterface.php";
+include "InscriptionInterface.php";*/
 /**
  * Class User
  */

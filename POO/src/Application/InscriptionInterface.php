@@ -1,5 +1,7 @@
 <?php
 
+namespace Application;
+
 /**
  * Interface InscriptionInterface
  */

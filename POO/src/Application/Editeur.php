@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: wac32
- * Date: 07/04/15
- * Time: 10:16
- */
+namespace Application;
 
 /**
  * Class Editeur

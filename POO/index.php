@@ -7,10 +7,20 @@
     <div class="container">
 <?php
 //inclusion de fichier
-include "Moderateur.php";
+/*include "Moderateur.php";
 include "Editeur.php";
 include "Commercial.php";
-include "Ecrivain.php";
+include "Ecrivain.php";*/
+
+//inclusion de l'autoload
+
+require_once __DIR__.'/vendor/autoload.php';
+use Application\User;
+use Application\Editeur;
+use Application\Commercial;
+use Application\Moderateur;
+use Application\Ecrivain;
+use Libraries\User as Userlib;
 
 //création de 3 objets User
 $user1 = new User('Perrotton', 'Elodie','elodie.perrotton@gmail.com',29);
@@ -145,6 +155,26 @@ echo"<br />";
 echo $ecrivain2->getNom();
 echo "<br />";
 echo $ecrivain1->deconnexion();
+echo "<br />";
+echo $commercial1->blamer($user3);
+echo"<br/>";
+echo beautiful("blablabla");
+$essais1= new Essais("","","","","");
+echo $essais1-> index();
+$userlib=new Userlib("jojo","bobo");
+echo"<br/>";
+
+// je crée un objet date time instancié à la date d'aujourd'hui
+$date=new \Datetime('now');
+
+//J'affiche la date au format date/mois/année.
+echo $date->format('d/m/Y');
+echo"<br/>";
+$date->modify('+1 year -3 month');
+echo $date-> format('d/m/Y h:i:s');
+echo "<br/>";
+$datefrom=\DateTime::createFromFormat('d/m/Y',"06/04/2011");
+echo "Date ". $datefrom->format('Y-m-d');
 ?>
 </div>
 </body>

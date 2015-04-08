@@ -1,0 +1,7 @@
+{
+    "autoload": {
+        "psr-4": { "": "src/"},
+        "files":["helpers/custom_helpers.php"],
+        "classmap":["lib"]
+    }
+}

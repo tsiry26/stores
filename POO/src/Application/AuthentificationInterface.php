@@ -1,5 +1,7 @@
 <?php
 
+namespace Application;
+
 /**
  * doir être sufixé par le mot Interface
  * Interface AuthentificationInterface

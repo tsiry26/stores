@@ -18,7 +18,9 @@ class CategoryController extends Controller
      */
     public function listAction()
     {
-        return $this->render('storeBackendBundle:Category:list.html.twig'); #Main => nom du dossier
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('storeBackendBundle:Category')->findAll();
+        return $this->render('storeBackendBundle:Category:list.html.twig',array('categories'=> $categories)); #Main => nom du dossier
     }
 
     /**

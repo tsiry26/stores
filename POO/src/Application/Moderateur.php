@@ -1,6 +1,8 @@
 <?php
 
-include "User.php";
+namespace Application;
+
+/*include "User.php";*/
 
 /**
  * Class Moderateur

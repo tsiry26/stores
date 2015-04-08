@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wac32
- * Date: 07/04/15
- * Time: 10:55
- */
+namespace Application;
 
+/*include "EditeurInterface.php";*/
 /**
  * Class Commercial
  */
-class Commercial extends User {
+class Commercial extends User implements EditeurInterface
+{
     /**
      * @var mag
      */
@@ -88,6 +85,36 @@ class Commercial extends User {
     public function promotionner()
     {
         return $this->nom ." a promotionné un article";
+    }
+
+    /**
+     * function modérer
+     * @return mixed
+     */
+    public function moderer($article)
+    {
+        // TODO: Implement moderer() method.
+        return $this->nom." a modéré ".$article;
+    }
+
+    /**
+     * function blamer
+     * @return mixed
+     */
+    public function blamer($user)
+    {
+        // TODO: Implement blamer() method.
+        return $this->nom." a blamé ".$user->getNom();
+    }
+
+    /**
+     * function promouvoir
+     * @return mixed
+     */
+    public function promouvoir($article)
+    {
+        // TODO: Implement promouvoir() method.
+        return $this->nom." promouvoir ".$article;
     }
 
 } 

@@ -1,11 +1,18 @@
 <?php
 
+namespace Application;
+/**
+ * le namespace doit porter le nom du dossier
+ */
+
+/*include "CRUDInterface.php";*/
 /**
  * Class AbstractUser
  * Nomenclature: Mon nom de classe abstraite est préfixé par le mot "Abstract"
  * Class qui me sert de modèle aux classes filles qui hériteront de cette classe
  */
-abstract class AbstractUser{
+abstract class AbstractUser implements CRUDInterface
+{
 
     /**
      * @var genre
@@ -123,5 +130,42 @@ abstract class AbstractUser{
     {
         return $this->getNom()." c'est bien déconnecté";
     }
+
+    /**
+     * Méthode créer
+     * @return mixed
+     */
+    public function creer()
+    {
+        // TODO: Implement creer() method.
+    }
+
+    /**
+     * Méthode modifier
+     * @return mixed
+     */
+    public function modifier($id)
+    {
+        // TODO: Implement modifier() method.
+    }
+
+    /**
+     * Méthode voir
+     * @return mixed
+     */
+    public function voir()
+    {
+        // TODO: Implement voir() method.
+    }
+
+    /**
+     * Méthode supprimer
+     * @return mixed
+     */
+    public function supprimer()
+    {
+        // TODO: Implement supprimer() method.
+    }
+
 
 }
