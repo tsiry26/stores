@@ -1,0 +1,29 @@
+-user1:
+  nom: Boyer
+  prenom: Julien
+  age: 26
+  ville: Lyon
+  sports: ['Rugby','Boxe-Style']
+  loisirs:
+    - "Musique"
+    - "Cinema"
+  technologies:
+    web: "PHP"
+    frameworks: "Symfony - Laraval"
+    logiciel: "PHPStorm"
+    integration: ['SASS', 'CSS', 'COFFESCRIPT']
+
+-user2:
+  nom: Boyer
+  prenom: Florent
+  age: 22
+  ville: ["Paris","Orléans"]
+  sports: ['Rugby','Boxe-Style']
+  loisirs:
+    - "Musique"
+    - "Cinema"
+  technologies:
+    web: "PHP"
+    frameworks: "Symfony - Laraval"
+    logiciel: "PHPStorm"
+    integration: ['SASS', 'CSS', 'COFFESCRIPT']

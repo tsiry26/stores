@@ -11,3 +11,7 @@ store_backend_category_view:
       id: \d+
       name: "[a-zA-Z0-9-]{3,30}"
       _method: GET
+
+store_backend_category_remove:
+    path:     /remove/{id}
+    defaults: { _controller: storeBackendBundle:Category:remove }

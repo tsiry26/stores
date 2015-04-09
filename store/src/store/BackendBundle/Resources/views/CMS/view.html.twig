@@ -2,5 +2,36 @@
 {% block titlepage %}
 {% endblock %}
 {% block content %}
-    <h1>view css</h1>
+    <table class="table table-bordered">
+        <thead>
+        <th>Title</th>
+        <th>Summary</th>
+        <th>Description</th>
+        <th>State</th>
+        <th>Active</th>
+        <th>Image</th>
+        <th>Produits</th>
+        </thead>
+        <tbody>
+        <td>{{ cms.title }}</td>
+        <td>{{ cms.summary }}</td>
+        <td>{{ cms.description }}</td>
+        <td>{{ cms.state }}</td>
+        <td>
+            {% if cms.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+        </td>
+        <td>{{ cms.image }}</td>
+        <td>
+            <ul>
+                {% for produit in cms.product %}
+                    <li>{{ produit.title }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        </tbody>
+    </table>
 {% endblock %}

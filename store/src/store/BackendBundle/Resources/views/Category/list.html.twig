@@ -3,21 +3,40 @@
     <i class="fa fa-bookmark"></i> Liste Category
 {% endblock %}
 {% block content %}
+<table class="table table-bordered">
+    <thead>
+    <th>Title</th>
+    <th>Active</th>
+    <th>Description</th>
+    <th>Position</th>
+    <th>Nombre des produits</th>
+    </thead>
+    <tbody>
     {% for category in categories %}
-        <p><h3>{{ category.title }}
+    <tr>
+        <td><a href="{{ path('store_backend_category_view',{'id':category.id,'name':category.title}) }}">{{ category.title }}</a></td>
+        <td>
         {% if category.active == 0 %}
             <i class="fa fa-times"></i>
         {% else %}
             <i class="fa fa-check"></i>
         {% endif %}
-    </h3></p>
-        <h4>Description</h4>
-        <p>{{ category.description }}</p>
-        <h4>Liste des Jeweler</h4>
-        <ul>
-            {% for jeweler in category.jeweler %}
-                <li>{{ jeweler.title }}</li>
-            {% endfor %}
-        </ul>
+        </td>
+        <td>{{ category.description }}</td>
+        <td>{{ category.position }}</td>
+        <td>{{ category.product|length }}</td>
+        <td>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i> Details</button>
+                <ul class="dropdown-menu">
+                    <li><a href={{ path('store_backend_category_view',{'id':category.id,'name':category.title}) }}><i class="fa fa-search"></i> Voir </a></li>
+                    <li><a href="#"><i class="fa fa-pencil"></i> Editer</a></li>
+                    <li><a href="{{ path('store_backend_category_remove',{'id':category.id}) }}"><i class="fa fa-times"></i> Supprimer</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
     {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

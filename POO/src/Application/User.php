@@ -234,4 +234,12 @@ class User extends AbstractUser implements AuthentificationInterface, Inscriptio
         return "L'utilisateur ".$this->nom." s'est bien connecté";
     }
 
+    /**
+     * Conversion en chaine de caractère de mon objet
+     * @return string
+     */
+    public function __toString(){
+        return $this->nom." ".$this->prenom;
+    }
+
 } 

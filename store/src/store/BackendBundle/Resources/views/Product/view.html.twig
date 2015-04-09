@@ -2,6 +2,37 @@
 {% block titlepage %}
 {% endblock %}
 {% block content %}
-    <h3>voir le produit {{ id }}</h3>
-    <p>nom du produit {{ nom }}</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Déscription</th>
+                <th>Quantity</th>
+                <th>Catégory</th>
+                <th>Tags</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ product.title }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <ul>
+                        {% for category in product.category %}
+                        <li>{{ category.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for tag in product.tag %}
+                            <li>{{ tag.word }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

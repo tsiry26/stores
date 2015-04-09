@@ -15,18 +15,29 @@ include "Ecrivain.php";*/
 //inclusion de l'autoload
 
 require_once __DIR__.'/vendor/autoload.php';
+
 use Application\User;
 use Application\Editeur;
 use Application\Commercial;
 use Application\Moderateur;
 use Application\Ecrivain;
 use Libraries\User as Userlib;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Yaml\Parser;
+
+//use Monolog
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 //création de 3 objets User
 $user1 = new User('Perrotton', 'Elodie','elodie.perrotton@gmail.com',29);
 $user2 = new User('Chada', 'Said','said.chada@gmail.com',26);
 $user3 = new User('Corroy', 'Alexandre','corroy.alexandre@gmail.com',28);
 
+echo"<br/>";
+//Utiliser la fonction tostring
+echo $user1;
+echo"<br/>";
 //Appel à la méthode commenter()
 $user1->commenter('Francois Hollande est un bon président');
 
@@ -175,6 +186,51 @@ echo $date-> format('d/m/Y h:i:s');
 echo "<br/>";
 $datefrom=\DateTime::createFromFormat('d/m/Y',"06/04/2011");
 echo "Date ". $datefrom->format('Y-m-d');
+echo"<br/>";
+echo $moderateur1;
+echo"<br/>";
+echo $commercial1;
+echo "<br/>";
+echo "<h3>Composer Finder</h3>";
+echo "<br/>";
+//Je crée un objet de ma classe Finder
+$finder=new Finder();
+
+//Je vais récupérer les fichiers (files()) dans mon dossier images(in())
+$finder->files()->in('images/');
+
+//Je parcours tous mes fichiers du dossier img/
+foreach ($finder as $file){
+    //J'affiche chaque image de mon dossier
+    echo "<img src='images/".$file->getRelativePathname()."'/>";
+}
+
+echo "<br/>";
+echo "<h3>Composer Yaml</h3>";
+echo "<br/>";
+
+//création de mon objet parser
+$yaml=new Parser();
+
+//parser le fichier app.yml dans config
+$value=$yaml->parse(file_get_contents('config/app.yml'));
+
+//explorer ma variable $value
+var_dump($value);
+
+echo "<br/>";
+echo "<h3>Composer Monolog</h3>";
+echo "<br/>";
+
+//create a log channel
+$log = new Logger('3WA utilise le composant Monolog');
+//créer un message de log
+
+$log->pushHandler(new StreamHandler('config/dev.log',Logger::WARNING));
+//Envoi le message préparé dans mon fichier de log dev.log
+
+// add records to the log
+$log->addWarning('Foo');
 ?>
 </div>
 </body>

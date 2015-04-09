@@ -52,6 +52,7 @@ class Moderateur extends User
     }
 
     /**
+     * SET Etoile
      * @param mixed $etoile
      */
     public function setEtoile($etoile)
@@ -60,6 +61,7 @@ class Moderateur extends User
     }
 
     /**
+     * GET Etoile
      * @return mixed
      */
     public function getEtoile()
@@ -67,8 +69,20 @@ class Moderateur extends User
         return $this->etoile;
     }
 
+    /**
+     * @param User $user
+     * @return string
+     */
     public function blamer(User $user)
     {
         return $this->nom. " a blamé". $user->nom;
+    }
+
+    /**
+     * function toString
+     * @return string
+     */
+    public function __toString(){
+        return $this->nom." ".$this->prenom;
     }
 }

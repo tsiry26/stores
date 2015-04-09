@@ -35,9 +35,28 @@ class ProductController extends Controller
      */
     public function viewAction($id, $name) #id doit être le même nom que dans la route
     {
+        // récupère le manager de doctrine : le conteneur d'objets de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère tous les produits de ma base de données avec la méthode findAll
+        $product = $em->getRepository('storeBackendBundle:Product')->find($id);
+
         return $this->render('storeBackendBundle:Product:view.html.twig', array(
-            'id' => $id,
-            'nom' => $name
+            'product' => $product
         ));
+    }
+
+    public function removeAction($id)
+    {
+        // récupère le manager de doctrine : le conteneur d'objets de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère tous les produits de ma base de données avec la méthode findAll
+        $product = $em->getRepository('storeBackendBundle:Product')->find($id);
+
+        $em->remove($product);
+        $em->flush();
+
+        return $this->redirectToRoute('store_backend_product_list');
     }
 }

@@ -31,10 +31,20 @@ class CategoryController extends Controller
      */
     public function viewAction($id, $name)
     {
+        $em = $this->getDoctrine()->getManager();
+        $categorie = $em->getRepository('storeBackendBundle:Category')->find($id);
         // return view de categorie où je transmet l'id en vue
         return $this->render('storeBackendBundle:Category:view.html.twig', array(
-            'id'=>$id,
-            'nom' =>$name
+            'categorie'=>$categorie
         ));
+    }
+
+    public function removeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categorie = $em->getRepository('storeBackendBundle:Category')->find($id);
+        $em->remove($categorie);
+        $em->flush();
+        return $this->redirectToRoute('store_backend_category_list');
     }
 }

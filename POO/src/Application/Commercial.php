@@ -117,4 +117,11 @@ class Commercial extends User implements EditeurInterface
         return $this->nom." promouvoir ".$article;
     }
 
+    /**
+     * function toString
+     * @return string
+     */
+    public function __toString(){
+        return $this->nom." ".$this->prenom;
+    }
 } 
