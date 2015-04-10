@@ -9,5 +9,8 @@ store_backend_supplier_view:
     defaults: { _controller: storeBackendBundle:Supplier:view } #NomduBundle:NomduControlleur:Nomdel'Action
     requirements:
       id: \d+
-      name: "[a-zA-Z0-9-]{3,30}"
       _method: GET
+
+store_backend_supplier_remove:
+    path:     /remove/{id}
+    defaults: { _controller: storeBackendBundle:Supplier:remove }

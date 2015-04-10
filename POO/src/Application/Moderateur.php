@@ -27,7 +27,7 @@ class Moderateur extends User
      * @param $etoile
      * @param $description
      */
-    public function __construct($nom, $prenom, $email, $age, $etoile, $description=""){
+    public function __construct($nom, $prenom, $email="", $age="", $etoile="", $description=""){
 
         //appel à mon constructeur parent
         parent::__construct($nom, $prenom, $email, $age);
@@ -60,6 +60,7 @@ class Moderateur extends User
         $this->etoile = $etoile;
     }
 
+
     /**
      * GET Etoile
      * @return mixed
@@ -84,5 +85,15 @@ class Moderateur extends User
      */
     public function __toString(){
         return $this->nom." ".$this->prenom;
+    }
+
+    /**
+     * Noter qui écrase la méthode noter() de ma classe parent User
+     * @param int $note
+     * @return string
+     */
+    public function noter($note=4)
+    {
+        return "Un modérateur a noté la note de ".$note;
     }
 }

@@ -73,9 +73,17 @@ class Commercial extends User implements EditeurInterface
      * Vendre un article
      * @return string
      */
-    public function vendre()
+    public function vendre($article)
     {
-        return $this->nom ." a vendu un article";
+        return " Je vends l'article ".$article." dans le centre commercial ";
+    }
+
+    public function commenter($message){
+        return "Commercial a commenté :".$message;
+    }
+
+    public function vendrecommenter($article="",$comment=""){
+        return $this->vendre($article). " ".$this->commenter($comment);
     }
 
     /**

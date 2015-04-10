@@ -2,5 +2,24 @@
 {% block titlepage %}
 {% endblock %}
 {% block content %}
-    <h1>View Supplier</h1>
+    <table class="table table-bordered">
+        <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Prouduits</th>
+        <th>Active</th>
+        </thead>
+        <tbody>
+        <td>{{ supplier.name }}</td>
+        <td>{{ supplier.description }}</td>
+        <td>
+            <ul>
+                {% for produit in supplier.product %}
+                    <li>{{ produit.title }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td>{{ supplier.active }}</td>
+        </tbody>
+    </table>
 {% endblock %}

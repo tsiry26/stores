@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('storeBackendBundle:Category')->findAll();
+        $categories = $em->getRepository('storeBackendBundle:Category')->getCategoryByUser(1);
         return $this->render('storeBackendBundle:Category:list.html.twig',array('categories'=> $categories)); #Main => nom du dossier
     }
 
@@ -39,6 +39,9 @@ class CategoryController extends Controller
         ));
     }
 
+    /**
+     * remove
+     */
     public function removeAction($id)
     {
         $em = $this->getDoctrine()->getManager();

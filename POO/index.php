@@ -24,10 +24,27 @@ use Application\Ecrivain;
 use Libraries\User as Userlib;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Parser;
+use Application\Vrp;
+use Application\Superadmin;
 
 //use Monolog
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+
+use Symfony\Component\HttpFoundation\Session\Session;
+
+$session = new Session(); //créer un objet Session
+$session->start();// je démarre une session
+
+//je recupère mon compteur en session,
+//si il n'existe pas il prendra la valeur de 0
+$compteur = $session->get('compteur',0);
+
+$compteur++;
+
+//j'enregistre en session mon nouveau compteur
+$session->set('compteur', $compteur);
+$compteur=$session->get('compteur');
 
 //création de 3 objets User
 $user1 = new User('Perrotton', 'Elodie','elodie.perrotton@gmail.com',29);
@@ -48,7 +65,7 @@ $user2->commenter('Rico aussi, mais François est aussi grand que sa réputation
 echo"<br/>";
 
 //l'envoi l'objet $user2 issue de ma classe User
-$user1->repondre($user2);
+$user1->repondre($user2,"");
 
 echo"<br/>";
 
@@ -88,7 +105,7 @@ echo "le mail de Said est ",$user2->getEmail();
 
 echo "<br/>";
 
-$user1 = clone $user2; //cloner l'objet dans un nouvel espace mémoire
+//$user1 = clone $user2; //cloner l'objet dans un nouvel espace mémoire
 $user1->setAge(10);
 
 echo $user2->getAge();
@@ -141,7 +158,7 @@ echo '<br/>';
 $commercial1=new Commercial("RAVALOSON","Tsiry","nialy@live.fr", "Cachan","expert");
 echo "Point de Vente : ".$commercial1->getMag();
 echo "<br/>";
-echo $commercial1->repondre($editeur1);
+/*echo $commercial1->repondre($user1,$editeur1);*/
 echo "<br/>";
 echo $commercial1->noter(8);
 echo "<br/>";
@@ -231,6 +248,28 @@ $log->pushHandler(new StreamHandler('config/dev.log',Logger::WARNING));
 
 // add records to the log
 $log->addWarning('Foo');
+
+$moderateur2 = new Moderateur("Tsiry", "Boyer", "tsiryboyer@gmail.com", 4);
+echo beautiful($moderateur2->noter(17));
+echo "<br/>";
+echo beautiful($moderateur2->partagerReseauxSociaux());
+echo "<br/>";
+$vrp = new Vrp('Leclerc',100);
+echo beautiful("le VRP travaillant dans le commerce: ".$vrp->getEcommerce());
+echo "<br/>";
+$superadmin=new Superadmin("tsiry26","","");
+echo beautiful("login de l'Admin :".$superadmin->getLogin());
+echo "<hr/>";
+echo beautiful(User::getLangue());
+echo "<hr/>";
+echo beautiful(User::getFormation());
+echo "<hr/>";
+echo beautiful(User::getPays());
+echo "<hr/>";
+echo beautiful($user1->interagir($user2, " c'est cool la POO",16));
+echo"<hr/>";
+echo beautiful($commercial1->vendrecommenter());
+echo "Mon compteur est de : ".$compteur;//j'affiche mon compteur
 ?>
 </div>
 </body>

@@ -1,7 +1,44 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
-{% block content %}
-    <h3>liste supplier</h3>
+{% block titlepage %}
+    <i class="fa fa-bookmark"></i> Liste des fournisseurs
 {% endblock %}
-{% block footer %}
-    {{ parent() }}
+{% block content %}
+    <div class="panel">
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                <th>Name</th>
+                <th>Active</th>
+                <th>Description</th>
+                <th>Date de Création</th>
+                </thead>
+                <tbody>
+                {% for suppliers in suppliers%}
+                    <tr>
+                        <td><a href="{{ path('store_backend_supplier_view',{'id':suppliers.id,'name':suppliers.name}) }}">{{ suppliers.name }}</a></td>
+                        <td>
+                            {% if suppliers.active == 0 %}
+                                <i class="fa fa-times"></i>
+                            {% else %}
+                                <i class="fa fa-check"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{ suppliers.description}}</td>
+                        <td>{{ suppliers.dateCreated|date('d/m/Y')  }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i> Details</button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('store_backend_supplier_view',{'id':suppliers.id,'name':suppliers.name}) }}"><i class="fa fa-search"></i> Voir </a></li>
+                                    <li><a href="#"><i class="fa fa-pencil"></i> Editer</a></li>
+                                    <li><a href="{{ path('store_backend_supplier_remove',{'id':suppliers.id}) }}"><i class="fa fa-times"></i> Supprimer</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

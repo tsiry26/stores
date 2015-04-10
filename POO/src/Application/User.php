@@ -36,6 +36,11 @@ class User extends AbstractUser implements AuthentificationInterface, Inscriptio
      */
     const LANGUES = "Français";
 
+    /**
+     * constante formation
+     */
+    const FORMATION = "3W Academy";
+
 
     /**
      * Constructeur qui prend 4 paramètres
@@ -204,17 +209,28 @@ class User extends AbstractUser implements AuthentificationInterface, Inscriptio
      * Repondre à un autre utilisateur
      * @param User $user
      */
-    public function repondre(User $user){
-        echo $this->nom. "a répondre au commentaire de".$user->nom;
+    public function repondre(User $user, $message){
+        return $this->nom. " réponds au commentaire de ".$user->nom." : ".$message;
     }
 
     /**
      * Méthode noter
      */
-    public function noter(){
-        return $this->nom." a noté!";
+    public function noter($note=4){
+        return $this->nom." a noté! ".$note;
     }
 
+    /**
+     * Intéragir avec un utilisateur , un message et une note
+     * @param User $user
+     * @param string $message
+     * @param $note
+     */
+    public function interagir(User $user, $message="",$note)
+    {
+        //appel à la méthode repond(), et la methode noter()
+        return $this->repondre($user,$message)." ".$this->noter($note);
+    }
     /**
      * chacune des classes doit implémenter sa propre inscription
      * @return mixed
@@ -235,11 +251,42 @@ class User extends AbstractUser implements AuthentificationInterface, Inscriptio
     }
 
     /**
+     * Pour partager sur les réseaux sociaux
+     * C'est une méthode qui ne pourra pas se réécrire par mes classe filles
+     */
+    public final function partagerReseauxSociaux(){
+        return $this. "a partagé sur Facebook et Twitter :)";
+    }
+
+    /**
+     * Methode statique utilise des constantes
+     * C'est une méthode que n'est pas dynamique: qui est constante et que je ne peux modifier
+     * @return string
+     */
+    static public function getPays(){
+        return "Tous les utilisateurs viennent de ".self::PAYS;
+    }
+
+    /**
+     * @return string
+     */
+    static public function getFormation()
+    {
+        return "Tous les utisateurs proviennent de la ".self::FORMATION;
+    }
+
+    /**
+     * @return string
+     */
+    static public function getLangue(){
+        return "Tous les utilisateurs parlent ".self::LANGUES;
+    }
+
+    /**
      * Conversion en chaine de caractère de mon objet
      * @return string
      */
     public function __toString(){
         return $this->nom." ".$this->prenom;
     }
-
 } 

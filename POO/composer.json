@@ -8,6 +8,7 @@
         "php": ">=5.3.3",
         "symfony/finder": "dev-master",
         "symfony/yaml": "dev-master",
-        "monolog/monolog":"dev-master"
+        "monolog/monolog":"dev-master",
+        "symfony/http-foundation":"dev-master"
     }
 }

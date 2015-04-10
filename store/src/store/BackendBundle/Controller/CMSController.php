@@ -19,7 +19,7 @@ class CMSController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $cms = $em->getRepository('storeBackendBundle:Cms')->findAll();
+        $cms = $em->getRepository('storeBackendBundle:Cms')->getCmsByUser(1);
         return $this->render('storeBackendBundle:CMS:list.html.twig', array('cms'=>$cms)); #Main => nom du dossier
     }
 

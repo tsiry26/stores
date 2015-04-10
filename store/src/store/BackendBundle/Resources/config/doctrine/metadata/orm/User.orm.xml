@@ -17,7 +17,7 @@
     <field name="fid" type="integer" column="fid" nullable="true"/>
     <field name="password" type="string" column="password" length="150" nullable="true"/>
     <many-to-many field="product" target-entity="Product" inversed-by="user">
-      <join-table name="like">
+      <join-table name="likes">
         <join-columns>
           <join-column name="user_id" referenced-column-name="id"/>
         </join-columns>

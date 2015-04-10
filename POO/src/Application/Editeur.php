@@ -42,4 +42,14 @@ class Editeur extends User {
         return $this->presse;
     }
 
+    /**
+     * Ecrase la méthode repondre dans la classe parent
+     * @param User $user
+     * @return string|void
+     */
+    public function repondre(User $user)
+    {
+        return $this->nom. " réponds au commentaire de ".$user->nom;
+    }
+
 } 

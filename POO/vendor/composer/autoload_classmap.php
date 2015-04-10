@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Essais' => $baseDir . '/lib/Essais.php',
+    'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
 );
