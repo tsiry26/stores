@@ -14,6 +14,11 @@ class SupplierRepository extends EntityRepository
 {
     public function getSupplierByUser($user=null)
     {
+        /*
+         * Récupère les fournisseurs
+         * où la boutique de mes produit est égale à mon paramètre
+         *
+         */
         $query=$this->getEntityManager()
             ->createQuery(
                 "

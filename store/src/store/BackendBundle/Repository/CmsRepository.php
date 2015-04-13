@@ -24,4 +24,19 @@ class CmsRepository extends EntityRepository
             ->setParameter('user', $user);
         return $query->getResult();
     }
+
+    public function getCountByUser($user=null)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT COUNT (c) AS nb
+                FROM storeBackendBundle:Cms c
+                WHERE c.jeweler= :user"
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getOneOrNullResult();
+    }
 }

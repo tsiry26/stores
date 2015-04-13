@@ -29,4 +29,43 @@ class ProductRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * COUNT All Product
+     * SELECT COUNT(id)
+     * FROM 'product'
+     * WHERE 'jeweler_id'=1
+     * @param null $user
+     * @return mixed
+     */
+    public function getCountByUser($user = null)
+    {
+        //compte le nbr de produits pour 1 bijoutier
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT COUNT (p) AS nb
+                FROM storeBackendBundle:Product p
+                WHERE p.jeweler= :user"
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getOneOrNullResult();
+    }
+
+    public function getSumProduct($user=null)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT SUM (p) AS somme
+                FROM storeBackendBundle:Product p
+                WHERE p.jeweler= :user"
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getOneOrNullResult();
+    }
 }
