@@ -39,4 +39,20 @@ class CategoryRepository extends EntityRepository
         // retourne 1 résultat ou null
         return $query->getOneOrNullResult();
     }
+
+    public function getCategPopular($user=null)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT c
+                FROM storeBackendBundle:Category c
+                WHERE c.jeweler= :user AND c.position>=1
+                ORDER BY c.position ASC "
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getResult();
+    }
 } 

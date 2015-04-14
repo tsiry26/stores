@@ -218,4 +218,14 @@ class Comment
     {
         return $this->product;
     }
+
+    /**
+     * Retourne le content
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->content;
+    }
+
 }

@@ -723,6 +723,10 @@ class Jeweler
         return $this->id;
     }
 
+    /**
+     * Retourne title
+     * @return string
+     */
     public function __toString(){
         return $this->title;
     }

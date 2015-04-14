@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * JewelerMeta
  *
  * @ORM\Table(name="jeweler_meta", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\JewelerRepository")
  */
 class JewelerMeta
 {
@@ -514,5 +514,13 @@ class JewelerMeta
     public function getJeweler()
     {
         return $this->jeweler;
+    }
+
+    /**
+     * Retourne id
+     * @return int
+     */
+    public function __toString(){
+        return $this->id;
     }
 }

@@ -30,6 +30,9 @@ class MainController extends Controller
        $sum=$em->getRepository('storeBackendBundle:Product')->getSumProduct(1);
        $lastmsg=$em->getRepository('storeBackendBundle:Message')->getLastMessage(1);
        $lastorders=$em->getRepository('storeBackendBundle:Orders')->getLastOrders(1);
+       $jeweler=$em->getRepository('storeBackendBundle:JewelerMeta')->getJewelerDetails(1);
+       $catgpop=$em->getRepository('storeBackendBundle:Category')->getCategPopular(1);
+       $promotion=$em->getRepository('storeBackendBundle:Business')->getPromotion(1);
       return $this->render('storeBackendBundle:Main:index.html.twig',
           array(
               'nbprod'=>$nbprod,
@@ -41,6 +44,9 @@ class MainController extends Controller
               'sum'=>$sum,
               'lastmsg'=>$lastmsg,
               'lastorders'=>$lastorders,
+              'jeweler'=>$jeweler,
+              'catgpop'=>$catgpop,
+              'promotion'=>$promotion,
           ));
    }
 }

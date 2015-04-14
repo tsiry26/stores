@@ -54,12 +54,12 @@ class ProductRepository extends EntityRepository
         return $query->getOneOrNullResult();
     }
 
-    public function getSumProduct($user=null)
+    public function getSumProduct($user = null)
     {
         $query=$this->getEntityManager()
             ->createQuery(
                 "
-                SELECT SUM (p) AS somme
+                SELECT SUM (p.price*p.quantity) AS somme
                 FROM storeBackendBundle:Product p
                 WHERE p.jeweler= :user"
             )
@@ -68,4 +68,5 @@ class ProductRepository extends EntityRepository
         // retourne 1 résultat ou null
         return $query->getOneOrNullResult();
     }
+
 }

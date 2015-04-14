@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Business
  *
  * @ORM\Table(name="business")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\BusinessRepository")
  */
 class Business
 {
@@ -258,5 +258,14 @@ class Business
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Retourne le montant
+     * @return float
+     */
+    public function __toString()
+    {
+        return $this->amount;
     }
 }

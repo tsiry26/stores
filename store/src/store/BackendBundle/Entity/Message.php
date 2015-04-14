@@ -218,4 +218,12 @@ class Message
     {
         return $this->jeweler;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->content;
+    }
 }

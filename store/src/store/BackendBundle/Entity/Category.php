@@ -232,4 +232,14 @@ class Category
     {
         return $this->product;
     }
+
+    /**
+     * Retourne title
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
+
 }

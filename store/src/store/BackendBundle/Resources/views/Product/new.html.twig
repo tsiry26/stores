@@ -1,0 +1,9 @@
+{% extends "storeBackendBundle::layout.html.twig" %}
+{% block titlepage %}
+    <i class="fa fa-plus"></i> Creation de produit
+{% endblock %}
+
+{% block content %}
+    {#création du formulaire avec label input et message d'erreur#}
+{{ form(form) }}
+{% endblock %}

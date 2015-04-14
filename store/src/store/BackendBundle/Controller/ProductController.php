@@ -4,6 +4,7 @@
 namespace store\BackendBundle\Controller;
 
 //require avec Controller
+use store\BackendBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -58,5 +59,16 @@ class ProductController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('store_backend_product_list');
+    }
+
+    /**
+     * Page new action
+     */
+    public function newAction()
+    {
+        //créer un formulaire de produit
+        $form= $this->createForm(new ProductType());
+
+        return $this->render('storeBackendBundle:Product:new.html.twig',array("form"=> $form->createView()));
     }
 }

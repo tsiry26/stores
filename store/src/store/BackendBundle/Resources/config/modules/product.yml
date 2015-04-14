@@ -16,3 +16,8 @@ store_backend_product_view:
 store_backend_product_remove:
     path:     /remove/{id}
     defaults: { _controller: storeBackendBundle:Product:remove }
+
+
+store_backend_product_new:
+    path:     /new
+    defaults: { _controller: storeBackendBundle:Product:new }

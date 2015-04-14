@@ -927,4 +927,12 @@ class Product
     {
         return $this->business;
     }
+
+    /**
+     * Retourne title
+     * @return string
+     */
+    public function __toString(){
+        return $this->title;
+    }
 }

@@ -35,7 +35,6 @@ class OrdersRepository extends EntityRepository
                 SELECT o AS last
                 FROM storeBackendBundle:Orders o
                 WHERE o.jeweler= :user
-                JOIN order
                 ORDER BY o.dateCreated DESC"
             )
             ->setParameter('user',$user)
