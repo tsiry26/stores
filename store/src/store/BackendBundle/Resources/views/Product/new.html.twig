@@ -1,9 +1,100 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            if (! $('html').hasClass('ie8')) {
+                $('textarea').summernote({
+                    height: 200,
+                    tabsize: 2,
+                    codemirror: {
+                        theme: 'monokai'
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}
 {% block titlepage %}
     <i class="fa fa-plus"></i> Creation de produit
 {% endblock %}
 
 {% block content %}
     {#création du formulaire avec label input et message d'erreur#}
-{{ form(form) }}
+{#{{ form(form) }}#}
+
+{#créer une balise ouvrante <form>#}
+{{ form_start(form) }}
+
+    {#me sort juste le label d'un champ#}
+    {#{{ form_label(form.ref) }}#}
+
+    {#me sort juste l'input d'un champ#}
+    {#{{ form_widget(form.ref) }}#}
+
+    {#me sort juste les erreurs d'un champ#}
+    {#{{ form_errors(form.ref) }}#}
+
+    {#fonction qui sort le label le widget et les errors#}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.ref) }}
+        </div>
+        <div class="col-md-8">
+            {{ form_row(form.title) }}
+        </div>
+    </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.summary) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.price) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.quantity) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.taxe) }}
+        </div>
+    </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.active) }}
+            {{ form_row(form.cover) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.composition) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.cms) }}
+        </div>
+    </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.supplier) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.tag) }}
+        </div>
+    </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+
+    {#bouton envoyer#}
+    {{ form_widget(form.envoyer,{'attr':{'class':'btn btn-lg btn-primary'}}) }}
+
+    {#ATTENTION: token à ne pas oublier#}
+    {{ form_widget(form._token) }}
+
+{#Créer une balise fermeture </form>#}
+{{ form_end(form, {'render_rest':false}) }}
 {% endblock %}

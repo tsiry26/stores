@@ -4,8 +4,10 @@
 namespace store\BackendBundle\Controller;
 
 //require avec Controller
+use store\BackendBundle\Entity\Cms;
+use store\BackendBundle\Form\CmsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
 /**
  * Class CategoryController
  *
@@ -46,5 +48,44 @@ class CMSController extends Controller
         $em->remove($cms);
         $em->flush();
         return $this->redirectToRoute('store_backend_cms_list');
+    }
+
+    public function newAction(Request $request)
+    {
+        $cms=new Cms();
+
+        $em = $this->getDoctrine()->getManager();
+        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
+        $cms->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
+
+        //J'initialise la quantité et le prix à mon produit
+        /*$product->setQuantity(0);
+        $product->setPrice(0);*/
+
+        //créer un formulaire de produit
+        $form= $this->createForm(new CmsType(),$cms,
+            array(
+                'attr'=> array(
+                    'method'=>'post',
+                    'novalidate'=>'novalidate',
+                    'action'=>$this->generateUrl('store_backend_cms_new')
+                    //action de formulaire pointe vers cette même action de controlleur
+                )
+            ));
+
+        //je fusionne ma requête avec mon formulaire
+        $form->handleRequest($request);
+
+        //si la totalité du formulaire est valide
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cms);//j'enregistre mon objet product dans doctrine
+            $em->flush();//j'envoi ma requete d'insert à mon table product
+
+            return $this->redirectToRoute('store_backend_cms_list'); //redirection selon la route
+
+        }
+
+        return $this->render('storeBackendBundle:CMS:new.html.twig',array("form"=> $form->createView()));
     }
 }

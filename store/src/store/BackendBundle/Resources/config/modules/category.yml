@@ -14,3 +14,7 @@ store_backend_category_view:
 store_backend_category_remove:
     path:     /remove/{id}
     defaults: { _controller: storeBackendBundle:Category:remove }
+
+store_backend_category_new:
+    path:     /new
+    defaults: { _controller: storeBackendBundle:Category:new }

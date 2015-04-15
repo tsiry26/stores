@@ -3,7 +3,7 @@
 namespace store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Category
  *
@@ -23,21 +23,45 @@ class Category
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(
+     *       message="le titre doit être remplis"
+     * )
+     * @Assert\Length(
+     *     min="5",
+     *     max="500",
+     *     minMessage="Votre titre doit faire au moins {{ limit }} caractères",
+     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères"
+     * )
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
      */
     private $title;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(
+     *       message="la description doit être remplis"
+     * )
+     *@Assert\Length(
+     *     min="10",
+     *     max="1000",
+     *     minMessage="Votre composition doit faire au moins {{ limit }} caractères",
+     *     maxMessage="Votre composition ne peut pas être plus long que {{ limit }} caractères"
+     * )
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var integer
-     *
+     *@Assert\NotBlank(
+     *       message="la position doit être remplis"
+     * )
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 10,
+     *      minMessage = "le chiffre doit être au moins {{ limit }}",
+     *      maxMessage = "le chiffre ne doit pas dépasser {{ limit }}"
+     * )
      * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;

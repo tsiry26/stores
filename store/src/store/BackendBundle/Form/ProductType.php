@@ -40,7 +40,7 @@ class ProductType extends AbstractType
             'attr'=>array(
                 'class'=>'form-control',
                 'placeholder'=>'AAAA-XX-B',
-                'pattern'=>'[A-Z](4)-[0-9](2)-[A-Z](1)'
+                'pattern'=>'[A-Z]{4}-[0-9]{2}-[A-Z]{1}'
             )
         ));
         $builder->add('category', null, array(
@@ -114,8 +114,14 @@ class ProductType extends AbstractType
                 'class'=>'form-control',
             )
         ));
+        $builder->add('composition', null, array(
+            'label'=>'Composition(s) associée(s) au produit',
+            'attr'=>array(
+                'class'=>'form-control',
+            )
+        ));
         /*$builder->add('jeweler');*/
-        $builder->add('enoyer','submit', array(
+        $builder->add('envoyer','submit', array(
             'attr'=>array(
                 'class'=>'btn btn-primary btn-sm',
             )

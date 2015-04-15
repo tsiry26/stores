@@ -1,0 +1,14 @@
+{% extends "storeBackendBundle::layout.html.twig" %}
+{% block titlepage %}
+    <i class="fa fa-plus"></i> Creation de Category
+{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.position) }}
+        {{ form_widget(form.envoyer,{'attr':{'class':'btn btn-lg btn-primary'}}) }}
+        {{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest':false}) }}
+{% endblock %}
