@@ -4,12 +4,15 @@ namespace store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use store\BackendBundle\Validator\Constraints as StoreAssert;
 /**
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\ProductRepository")
+ * @UniqueEntity(fields="ref", message="Votre référence de bijoux éxiste déjà")
+ * @UniqueEntity(fields="title", message="Votre titre de bijoux éxiste déjà")
  */
 class Product
 {
@@ -53,12 +56,7 @@ class Product
      * @Assert\NotBlank(
      *       message="le résumé doit être remplis"
      * )
-     *@Assert\Length(
-     *     min="10",
-     *     max="1000",
-     *     minMessage="Votre résumé doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre résumé ne peut pas être plus long que {{ limit }} caractères"
-     * )
+     *@StoreAssert\StripTagLength
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
     private $summary;
@@ -230,7 +228,12 @@ class Product
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     *
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "5",
+     *      minMessage = "Vous devez spécifier au moins un catégorie",
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} catégories"
+     * )
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
      * @ORM\JoinTable(name="product_category",
      *   joinColumns={
@@ -245,7 +248,12 @@ class Product
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     *
+     *@Assert\Count(
+     *      min = "1",
+     *      max = "5",
+     *      minMessage = "Vous devez spécifier au moins un page cms",
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} pages cms"
+     * )
      * @ORM\ManyToMany(targetEntity="Cms", inversedBy="product")
      * @ORM\JoinTable(name="product_cms",
      *   joinColumns={

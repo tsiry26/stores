@@ -4,9 +4,10 @@ namespace store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Cms
- *
+ * @UniqueEntity(fields="title", message="le titre de la cms éxiste déjà")
  * @ORM\Table(name="cms", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\CmsRepository")
  */

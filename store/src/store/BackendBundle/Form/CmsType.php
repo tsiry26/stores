@@ -44,7 +44,7 @@ class CmsType extends AbstractType
             )
         ));
 
-        $builder->add('image', null, array(
+        $builder->add('image', 'url', array(
             'label'=>'Image',
             'required'=> true,
             'attr'=>array(
@@ -53,8 +53,10 @@ class CmsType extends AbstractType
             )
         ));
 
-        $builder->add('dateActive', null, array(
-            'label'=>'date',
+        $builder->add('dateActive', 'date', array(
+            'label'=>"date d'activation",
+            'widget'=> 'choice',
+            'pattern'=>'{{ day }}-{{ month }}-{{ year }}'
         ));
 
         $builder->add('video', null, array(

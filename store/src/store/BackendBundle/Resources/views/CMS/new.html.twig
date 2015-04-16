@@ -4,5 +4,23 @@
 {% endblock %}
 
 {% block content %}
-    {{ form(form) }}
+    {{ form_start(form) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.title) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.summary) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.description) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.image) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.dateActive) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.video) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_row(form.state) }}
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    {{ form_widget(form.envoyer,{'attr':{'class':'btn btn-lg btn-primary'}}) }}
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest':false}) }}
 {% endblock %}

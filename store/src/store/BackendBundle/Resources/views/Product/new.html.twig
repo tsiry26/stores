@@ -1,4 +1,8 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
+
+{#Cette fonction va me chercher un thème de formulaire#}
+{% form_theme form 'storeBackendBundle:Partial:form.html.twig' %}
+
 {% block javascripts %}
     {{ parent() }}
     <script>
@@ -70,6 +74,8 @@
         <div class="col-md-4">
             {{ form_row(form.active) }}
             {{ form_row(form.cover) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.dateActive) }}
         </div>
         <div class="col-md-4">
             {{ form_row(form.composition) }}

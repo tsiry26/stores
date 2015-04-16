@@ -39,4 +39,13 @@ class CmsRepository extends EntityRepository
         // retourne 1 résultat ou null
         return $query->getOneOrNullResult();
     }
+    public function getCmsByUserBuilder($user)
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->where('c.jeweler=:user')
+            ->orderBy('c.title','ASC')
+            ->setParameter('user', $user);
+
+        return $queryBuilder;
+    }
 }

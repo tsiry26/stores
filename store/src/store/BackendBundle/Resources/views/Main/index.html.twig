@@ -1,4 +1,12 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('#dashboard-support-tickets .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
+        })
+    </script>
+{% endblock %}
 {% block titlepage %}
 {% endblock %}
 {% block content %}
