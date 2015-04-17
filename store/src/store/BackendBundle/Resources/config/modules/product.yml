@@ -25,3 +25,11 @@ store_backend_product_new:
 store_backend_product_edit:
     path:     /edit/{id}
     defaults: { _controller: storeBackendBundle:Product:edit }
+
+store_backend_product_active:
+    path:     /active/{id}
+    defaults: { _controller: storeBackendBundle:Product:active }
+
+store_backend_product_desactive:
+    path:     /desactive/{id}
+    defaults: { _controller: storeBackendBundle:Product:desactive }

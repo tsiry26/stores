@@ -86,6 +86,11 @@ class CategoryController extends Controller
             $em->persist($category);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
 
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre catégorie a été bien créer'
+            );
+
             return $this->redirectToRoute('store_backend_category_list'); //redirection selon la route
 
         }
@@ -121,6 +126,11 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre catégorie a été bien éditer'
+            );
 
             return $this->redirectToRoute('store_backend_category_list'); //redirection selon la route
 

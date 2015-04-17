@@ -27,16 +27,16 @@
         <td><i>{{ product.dateCreated|date('d/m/Y') }}</i></td>
         <td>
         {% if product.active == 0 %}
-            <i class="fa fa-times"></i>
+            <a href="{{ path('store_backend_product_active',{'id': product.id }) }}"><i class="fa fa-times"></i></a>
         {% else %}
-            <i class="fa fa-check"></i>
+            <a href="{{ path('store_backend_product_desactive',{'id': product.id }) }}"><i class="fa fa-check"></i></a>
         {% endif %}
         </td>
         <td>
         <sub>{{ product.ref }}</sub> {#affiche la référence du produit#}
         </td>
         {#{{ dump (product) }}#} {#deboguer une variable#}
-        <td>{{ product.description }}</td>
+        <td>{{ product.description|striptags }}</td>
         <td>{{ product.quantity }}</td>
         <td>{{ product.price }} €</td>
         <td>{{ product.taxe }}%</td>

@@ -56,6 +56,28 @@ class Product
     private $title;
 
     /**
+     * @ORM\Column(name="imagepresentation", type="string", length=30, nullable=true)
+     */
+    private $imagepresentation;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 100,
+     *     maxWidth = 3000,
+     *     minHeight = 100,
+     *     maxHeight = 2500,
+     *     maxWidthMessage = "La largeur est trop grande",
+     *     minWidthMessage = "La largeur est trop petite",
+     *     maxHeightMessage = "La hauteur est trop grande",
+     *     minHeightMessage = "La hauteur est trop petite",
+     *     groups={"new", "edit"}
+     * )
+     * Attribut qui représentera mon fichier upload
+     * @var
+     */
+    protected  $file;
+
+    /**
      * @var string
      * @Assert\NotBlank(
      *       message="le résumé doit être remplis",
@@ -268,7 +290,6 @@ class Product
      *      max = "5",
      *      minMessage = "Vous devez spécifier au moins un page cms",
      *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} pages cms",
-     *      groups={"new", "edit"}
      * )
      * @ORM\ManyToMany(targetEntity="Cms", inversedBy="product")
      * @ORM\JoinTable(name="product_cms",
@@ -1031,5 +1052,107 @@ class Product
      */
     public function __toString(){
         return $this->title;
+    }
+
+    /**
+     * Set imagepresentation
+     *
+     * @param string $imagepresentation
+     * @return Product
+     */
+    public function setImagepresentation($imagepresentation)
+    {
+        $this->imagepresentation = $imagepresentation;
+
+        return $this;
+    }
+
+    /**
+     * Get imagepresentation
+     *
+     * @return string 
+     */
+    public function getImagepresentation()
+    {
+        return $this->imagepresentation;
+    }
+
+    /**
+     * Retourne le chemin absolue de mon fichier upload
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->imagepresentation ? null : $this->getUploadRootDir().'/'.$this->imagepresentation;
+    }
+
+    /**
+     * Retourne le chemin de l'image depuis le dossier web
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->imagepresentation ? null : $this->getUploadDir().'/'.$this->imagepresentation;
+    }
+
+    /**
+     * Retourne le chemin de mon image depuis l'entité
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * Retourne le dossier d'upload et sous dossier product
+     * @return string
+     */
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/product';
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Mécanisme d'Upload + déplacement du fichier upload dans le bon dossier
+     */
+    public function upload()
+    {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->file) {
+            return;
+        }
+
+        // utilisez le nom de fichier original ici mais
+        // vous devriez « l'assainir » pour au moins éviter
+        // quelconques problèmes de sécurité
+
+        // Déplacer le fichier uploadé dans le bon répertoir uploads/product/
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        // je stocke le nom du fichier uploadé dans mon attirbut imagepresentation
+        $this->imagepresentation = $this->file->getClientOriginalName();
+
+        // « nettoie » la propriété « file » comme vous n'en aurez plus besoin
+        $this->file = null;
     }
 }

@@ -57,6 +57,16 @@ class ProductType extends AbstractType
             )
         ));
 
+        $builder->add('file', 'file', array(
+            'label'=>'Image de présentation',
+            'required'=> false,
+            'attr'=>array(
+                'class'=>'form-control',
+                'accept'=>'image/*',
+                'capture'=>'capture'
+            )
+        ));
+
         /*$builder->add('category', null, array(
             'label'=>'Catégorie(s) associée(s)',
             'class'=>'storeBackendBundle:Category',

@@ -97,10 +97,30 @@ class ProductController extends Controller
 
         //si la totalité du formulaire est valide
         if($form->isValid()){
+
+            //j'upload mon fichier en faisant appel a la methode upload
+            $product->upload();
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
 
+            //Je créer un message flash avec pour clef "succes" et un message de confirmation
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a été bien créer'
+            );
+
+            //je récupère la quantité
+            $quantity=$product->getQuantity();
+
+            if($quantity==1)
+            {
+                $this->get('session')->getFlashBag()->add(
+                    'warning',
+                    'Votre bijou est un produit unique'
+                );
+            }
             return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
 
         }
@@ -152,5 +172,21 @@ class ProductController extends Controller
         }
 
         return $this->render('storeBackendBundle:Product:edit.html.twig',array("form"=> $form->createView()));
+    }
+
+    public function activeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository('storeBackendBundle:Product')->activeProduct($id);
+        $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser(1);
+        return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
+    }
+
+    public function desactiveAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository('storeBackendBundle:Product')->desactiveProduct($id);
+        $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser(1);
+        return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
     }
 }

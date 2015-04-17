@@ -69,4 +69,29 @@ class ProductRepository extends EntityRepository
         return $query->getOneOrNullResult();
     }
 
+    /*public function activeProduct($id)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                UPDATE storeBackendBundle:Product p
+                SET p.active=1
+                WHERE p.id= :id"
+            )
+            ->setParameter('id',$id);
+
+    }
+
+    public function desactiveProduct($id)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                UPDATE storeBackendBundle:Product p
+                SET p.active=0
+                WHERE p.id= :id"
+            )
+            ->setParameter('id',$id);
+
+    }*/
 }
