@@ -83,6 +83,7 @@ class ProductController extends Controller
         //créer un formulaire de produit
         $form= $this->createForm(new ProductType(1),$product,
             array(
+                'validation_groups'=> 'new',
                 'attr'=> array(
                     'method'=>'post',
                     'novalidate'=>'novalidate',
@@ -107,26 +108,32 @@ class ProductController extends Controller
         return $this->render('storeBackendBundle:Product:new.html.twig',array("form"=> $form->createView()));
     }
 
-    public function editAction(Request $request, $id)
+
+    /**
+     * Param convertir un int en objet Product directement
+     * Je récupère l'objet Request qui contient toutes mes données en GET, POST...
+     *
+     */
+    public function editAction(Request $request,Product $id)
     {
-        // Je créer une nouvelle objet entité Procduct
-        $product=new Product();
-
+        //Je récupère le doctrine
         $em = $this->getDoctrine()->getManager();
-        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
-        $product->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
 
-        //J'initialise la quantité et le prix à mon produit
-        /*$product->setQuantity(0);
-        $product->setPrice(0);*/
+        //je vais rechercher un objet Produit existant par son id
+        /*$product=$em->getRepository('storeBackendBundle:Product')->find($id);*/
 
-        //créer un formulaire de produit
-        $form= $this->createForm(new ProductType(1),$product,
+        //Je récupère un jeweler numéro 1
+       /* $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
+        $product->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit*/
+
+        //Je crée un formulaire de produit en associant avec mon produit
+        $form= $this->createForm(new ProductType(1),$id,
             array(
+                'validation_groups'=> 'edit',
                 'attr'=> array(
                     'method'=>'post',
                     'novalidate'=>'novalidate',
-                    'action'=>$this->generateUrl('store_backend_product_new')
+                    'action'=>$this->generateUrl('store_backend_product_edit', array('id' => $id->getId()))
                     //action de formulaire pointe vers cette même action de controlleur
                 )
             ));
@@ -137,13 +144,13 @@ class ProductController extends Controller
         //si la totalité du formulaire est valide
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            $em->persist($product);//j'enregistre mon objet product dans doctrine
+            $em->persist($id);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
 
             return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
 
         }
 
-        return $this->render('storeBackendBundle:Product:new.html.twig',array("form"=> $form->createView()));
+        return $this->render('storeBackendBundle:Product:edit.html.twig',array("form"=> $form->createView()));
     }
 }

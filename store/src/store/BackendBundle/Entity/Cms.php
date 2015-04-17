@@ -25,13 +25,15 @@ class Cms
     /**
      * @var string
      *@Assert\NotBlank(
-     *       message="le titre doit être remplis"
+     *       message="le titre doit être remplis",
+     *       groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="5",
      *     max="500",
      *     minMessage="Votre titre doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
      */
@@ -40,13 +42,15 @@ class Cms
     /**
      * @var string
      *@Assert\NotBlank(
-     *       message="le résumé doit être remplis"
+     *       message="le résumé doit être remplis",
+     *      groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="10",
      *     max="1000",
      *     minMessage="Votre résumé doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre résumé ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre résumé ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="summary", type="text", nullable=true)
      */
@@ -55,13 +59,15 @@ class Cms
     /**
      * @var string
      *@Assert\NotBlank(
-     *       message="la déscription doit être remplis"
+     *       message="la déscription doit être remplis",
+     *       groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="15",
      *     max="1000",
      *     minMessage="Votre déscription doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre déscription ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre déscription ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -70,9 +76,10 @@ class Cms
     /**
      * @var string
      * @Assert\NotBlank(
-     *       message="la déscription doit être remplis"
+     *       message="la déscription doit être remplis",
+     *       groups={"new", "edit"}
      * )
-     * @Assert\Url(message="Entrer un url")
+     * @Assert\Url(message="Entrer un url", groups={"new", "edit"})
      * @ORM\Column(name="image", type="string", length=300, nullable=true)
      */
     private $image;

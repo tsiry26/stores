@@ -68,6 +68,7 @@ class CategoryController extends Controller
         //créer un formulaire de produit
         $form= $this->createForm(new CategoryType(),$category,
             array(
+                'validation_groups'=> 'new',
                 'attr'=> array(
                     'method'=>'post',
                     'novalidate'=>'novalidate',
@@ -90,5 +91,41 @@ class CategoryController extends Controller
         }
 
         return $this->render('storeBackendBundle:Category:new.html.twig',array("form"=> $form->createView()));
+    }
+
+    public function editAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $category=$em->getRepository('storeBackendBundle:Category')->find($id);
+       /* $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
+        $category->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit*/
+
+        //créer un formulaire de produit
+        $form= $this->createForm(new CategoryType(),$category,
+            array(
+                'validation_groups'=> 'edit',
+                'attr'=> array(
+                    'method'=>'post',
+                    'novalidate'=>'novalidate',
+                    'action'=>$this->generateUrl('store_backend_category_edit',array('id'=>$id))
+                    //action de formulaire pointe vers cette même action de controlleur
+                )
+            ));
+
+        //je fusionne ma requête avec mon formulaire
+        $form->handleRequest($request);
+
+        //si la totalité du formulaire est valide
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);//j'enregistre mon objet product dans doctrine
+            $em->flush();//j'envoi ma requete d'insert à mon table product
+
+            return $this->redirectToRoute('store_backend_category_list'); //redirection selon la route
+
+        }
+
+        return $this->render('storeBackendBundle:Category:edit.html.twig',array("form"=> $form->createView()));
     }
 }

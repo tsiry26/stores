@@ -28,9 +28,11 @@ class Product
     /**
      * @var string
      * @Assert\Regex(pattern="/[A-Z]{4}-[0-9]{2}-[A-Z]{1}/",
-     *               message="La référence n'est pas valide")
+     *               message="La référence n'est pas valide"),
+     *               groups={"new", "edit"}
      * @Assert\NotBlank(
-     *     message="La référence ne doit pas etre vide"
+     *     message="La référence ne doit pas etre vide",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
      */
@@ -39,13 +41,15 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank(
-     *       message="le titre doit être remplis"
+     *       message="le titre doit être remplis",
+     *       groups={"new", "edit"}
      * )
      * @Assert\Length(
      *     min="4",
      *     max="1000",
      *     minMessage="Votre titre doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
      */
@@ -54,7 +58,8 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank(
-     *       message="le résumé doit être remplis"
+     *       message="le résumé doit être remplis",
+     *       groups={"new", "edit"}
      * )
      *@StoreAssert\StripTagLength
      * @ORM\Column(name="summary", type="text", nullable=true)
@@ -64,13 +69,15 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank(
-     *       message="la déscription doit être remplis"
+     *       message="la déscription doit être remplis",
+     *       groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="15",
      *     max="1000",
      *     minMessage="Votre déscription doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre déscription ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre déscription ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="description", type="text", nullable=true)
      */
@@ -79,13 +86,15 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank(
-     *       message="la composition doit être remplis"
+     *       message="la composition doit être remplis",
+     *       groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="5",
      *     max="1000",
      *     minMessage="Votre composition doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre composition ne peut pas être plus long que {{ limit }} caractères"
+     *     maxMessage="Votre composition ne peut pas être plus long que {{ limit }} caractères",
+     *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="composition", type="text", nullable=true)
      */
@@ -94,13 +103,15 @@ class Product
     /**
      * @var float
      * @Assert\NotBlank(
-     *       message="Mettre le prix"
+     *       message="Mettre le prix",
+     *       groups={"new", "edit"}
      * )
      * @Assert\Range(
      *      min = 10,
      *      max = 50000,
      *      minMessage = "Votre prix doit être au moins 10€",
-     *      maxMessage = "Votre prix ne doit pas dépasser 50000€"
+     *      maxMessage = "Votre prix ne doit pas dépasser 50000€",
+     *      groups={"new", "edit"}
      * )
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=true)
      */
@@ -109,9 +120,10 @@ class Product
     /**
      * @var float
      * @Assert\NotBlank(
-     *       message="Mettre le prix"
+     *       message="Mettre le prix",
+     *       groups={"new", "edit"}
      * )
-     *@Assert\Choice(choices = {"5.5", "19.6","20"}, message = "Choisissez une taxe valide.")
+     *@Assert\Choice(choices = {"5.5", "19.6","20"}, message = "Choisissez une taxe valide.", groups={"new", "edit"})
      * @ORM\Column(name="taxe", type="float", precision=10, scale=0, nullable=true)
      */
     private $taxe;
@@ -119,13 +131,15 @@ class Product
     /**
      * @var integer
      *@Assert\NotBlank(
-     *       message="Mettre le prix"
+     *       message="Mettre le prix",
+     *       groups={"new", "edit"}
      * )
      * @Assert\Range(
      *      min = 1,
      *      max = 200,
      *      minMessage = "Votre quantité doit être au moins {{ limit }}",
-     *      maxMessage = "Votre quantité ne doit pas dépasser {{ limit }}"
+     *      maxMessage = "Votre quantité ne doit pas dépasser {{ limit }}",
+     *      groups={"new", "edit"}
      * )
      * @ORM\Column(name="quantity", type="integer", nullable=true)
      */
@@ -232,7 +246,8 @@ class Product
      *      min = "1",
      *      max = "5",
      *      minMessage = "Vous devez spécifier au moins un catégorie",
-     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} catégories"
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} catégories",
+     *      groups={"new", "edit"}
      * )
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="product")
      * @ORM\JoinTable(name="product_category",
@@ -252,7 +267,8 @@ class Product
      *      min = "1",
      *      max = "5",
      *      minMessage = "Vous devez spécifier au moins un page cms",
-     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} pages cms"
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} pages cms",
+     *      groups={"new", "edit"}
      * )
      * @ORM\ManyToMany(targetEntity="Cms", inversedBy="product")
      * @ORM\JoinTable(name="product_cms",
@@ -298,7 +314,13 @@ class Product
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     *
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "5",
+     *      minMessage = "Vous devez spécifier au moins un tag associés",
+     *      maxMessage = "Vous ne pouvez pas spécifier plus de {{ limit }} tags",
+     *      groups={"edit"}
+     * )
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="product")
      * @ORM\JoinTable(name="product_tag",
      *   joinColumns={

@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+        {{ form_row(form.title) }}
+<hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+{{ form_row(form.description) }}
+<hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+{{ form_row(form.position) }}
+<hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+{{ form_widget(form.envoyer,{'attr':{'class':'btn btn-lg btn-primary'}}) }}
+{{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest':false}) }}
