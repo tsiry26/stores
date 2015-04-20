@@ -138,4 +138,20 @@ class CategoryController extends Controller
 
         return $this->render('storeBackendBundle:Category:edit.html.twig',array("form"=> $form->createView()));
     }
+
+    public function activateAction(Category $id, $action)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $id -> setActive($action);
+        $em->persist($id);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre catégorie a été bien modifié'
+        );
+
+        return $this->redirectToRoute('store_backend_category_list');
+    }
 }

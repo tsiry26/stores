@@ -23,14 +23,30 @@
          <td>{{ cms.title }}</td>
          <td>
           {% if cms.active == 0 %}
-            <i class="fa fa-times"></i>
+              <a href="{{ path('store_backend_cms_activate',{'id':cms.id,'action':1}) }}"><i class="fa fa-times"></i></a>
           {% else %}
-            <i class="fa fa-check"></i>
+              <a href="{{ path('store_backend_cms_activate',{'id':cms.id,'action':0}) }}"><i class="fa fa-check"></i></a>
           {% endif %}
          </td>
          <td>{{ cms.summary }}</td>
          <td>{{ cms.description }}</td>
-         <td>{{ cms.state }}</td>
+         <td>
+             {% if cms.state == 2 %}
+                 <a href="" class="btn btn-success disabled">Lu</a>
+                 <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':1}) }}" class="btn btn-primary">En cours de lecture</a>
+                 <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':0}) }}" class="btn btn-danger">Non lu</a>
+
+                 {% elseif cms.state ==1 %}
+                     <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':2}) }}" class="btn btn-success">Lu</a>
+                     <a href="" class="btn btn-primary disabled">En cours de lecture</a>
+                     <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':0}) }}" class="btn btn-danger">Non lu</a>
+                     {% else %}
+                         <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':2}) }}" class="btn btn-success">Lu</a>
+                         <a href="{{ path('store_backend_cms_state',{'id':cms.id,'action':1}) }}" class="btn btn-primary">En cours de lecture</a>
+                         <a href="" class="btn btn-danger disabled">Non lu</a>
+             {% endif %}
+
+         </td>
          <td>
             <div class="btn-group">
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-share-alt"></i> Details</button>

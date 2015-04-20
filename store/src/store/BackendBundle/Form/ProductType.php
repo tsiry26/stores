@@ -138,9 +138,11 @@ class ProductType extends AbstractType
         $builder->add('active', null, array(
             'label'=>'Produit activé dans la boutique ',
         ));
+
         $builder->add('cover', null, array(
             'label'=>'Produits mis en couverture dans la boutique? ',
         ));
+
         $builder->add('cms', null, array(
             'label'=>'Page(s) associée(s) au produit',
             'attr'=>array(

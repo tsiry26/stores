@@ -174,19 +174,34 @@ class ProductController extends Controller
         return $this->render('storeBackendBundle:Product:edit.html.twig',array("form"=> $form->createView()));
     }
 
-    public function activeAction($id)
+    public function activateAction(Product $id, $action)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository('storeBackendBundle:Product')->activeProduct($id);
-        $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser(1);
-        return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
+
+        $id->setActive($action);
+        $em->persist($id);
+        $em->flush();
+
+       $this->get('session')->getFlashBag()->add(
+           'success',
+           'Votre produit a bien été modifié'
+       );
+        return $this->redirectToRoute('store_backend_product_list');
     }
 
-    public function desactiveAction($id)
+    public function coverAction(Product $id, $action)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository('storeBackendBundle:Product')->desactiveProduct($id);
-        $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser(1);
-        return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
+
+        $id->setCover($action);
+        $em->persist($id);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre page de couverture a bien été modifié'
+        );
+        return $this->redirectToRoute('store_backend_product_list');
     }
+
 }

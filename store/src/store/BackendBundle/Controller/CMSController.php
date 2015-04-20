@@ -137,4 +137,36 @@ class CMSController extends Controller
 
         return $this->render('storeBackendBundle:CMS:edit.html.twig',array("form"=> $form->createView()));
     }
+
+    public function activateAction(CMS $id, $action)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $id -> setActive($action);
+        $em->persist($id);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre page cms a été bien modifié'
+        );
+
+        return $this->redirectToRoute('store_backend_cms_list');
+    }
+
+    public function stateAction(CMS $id, $action)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $id -> setState($action);
+        $em->persist($id);
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'Votre page cms a été bien modifié'
+        );
+
+        return $this->redirectToRoute('store_backend_cms_list');
+    }
 }

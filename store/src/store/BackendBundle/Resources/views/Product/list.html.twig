@@ -14,7 +14,7 @@
     <th>Date de création</th>
     <th>Active</th>
     <th>Ref</th>
-    <th>Description</th>
+    <th>Page de couverture</th>
     <th>Quantity</th>
     <th>Price</th>
     <th>Taxe</th>
@@ -27,16 +27,23 @@
         <td><i>{{ product.dateCreated|date('d/m/Y') }}</i></td>
         <td>
         {% if product.active == 0 %}
-            <a href="{{ path('store_backend_product_active',{'id': product.id }) }}"><i class="fa fa-times"></i></a>
+            <a href="{{ path('store_backend_product_activate',{'id': product.id,'action': 1 }) }}"><i class="fa fa-times"></i></a>
         {% else %}
-            <a href="{{ path('store_backend_product_desactive',{'id': product.id }) }}"><i class="fa fa-check"></i></a>
+            <a href="{{ path('store_backend_product_activate',{'id': product.id,'action': 0 }) }}"><i class="fa fa-check"></i></a>
         {% endif %}
         </td>
         <td>
         <sub>{{ product.ref }}</sub> {#affiche la référence du produit#}
         </td>
         {#{{ dump (product) }}#} {#deboguer une variable#}
-        <td>{{ product.description|striptags }}</td>
+        {#<td>{{ product.description|striptags }}</td>#}
+        <td>
+            {% if product.cover == 1 %}
+                <a href="{{ path('store_backend_product_cover',{'id': product.id,'action': 0 }) }}"><i class="fa fa-times"></i></a>
+            {% else %}
+                <a href="{{ path('store_backend_product_cover',{'id': product.id,'action': 1 }) }}"><i class="fa fa-check"></i></a>
+            {% endif %}
+        </td>
         <td>{{ product.quantity }}</td>
         <td>{{ product.price }} €</td>
         <td>{{ product.taxe }}%</td>
