@@ -2,6 +2,7 @@
 namespace store\BackendBundle\Controller;
 
 
+use store\BackendBundle\Form\JewelerSubscribeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -32,4 +33,16 @@ class SecurityController extends Controller
         ));
     }
 
+    /**
+     * Subscribe Page for Jewler
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function subscribeAction()
+    {
+        //Je crée mon formulaire d'inscription de Jeweler
+        $form = $this->createForm(new JewelerSubscribeType());
+        return $this->render('storeBackendBundle:Security:subscribe.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 }

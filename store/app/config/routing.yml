@@ -2,6 +2,7 @@ store_backend:
     resource: "@storeBackendBundle/Resources/config/routing.yml"
     prefix:   /administration
 
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -20,3 +21,8 @@ store_backend_security_login_check:
 
 store_backend_security_logout:
     path: /administration/logout
+
+#Suscribe Jeweler Backend
+store_backend_security_subscribe:
+    path: /subscribe
+    defaults: { _controller: storeBackendBundle:Security:subscribe }

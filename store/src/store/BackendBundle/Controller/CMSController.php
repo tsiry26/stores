@@ -21,7 +21,8 @@ class CMSController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $cms = $em->getRepository('storeBackendBundle:Cms')->getCmsByUser(1);
+        $user=$this->getUser();
+        $cms = $em->getRepository('storeBackendBundle:Cms')->getCmsByUser($user);
         return $this->render('storeBackendBundle:CMS:list.html.twig', array('cms'=>$cms)); #Main => nom du dossier
     }
 
@@ -54,16 +55,16 @@ class CMSController extends Controller
     {
         $cms=new Cms();
 
-        $em = $this->getDoctrine()->getManager();
-        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
-        $cms->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
+        $user=$this->getUser();
+        /*$jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find($user);*/
+        $cms->setJeweler($user);//j'associe mon jewler 1 à mon produit
 
         //J'initialise la quantité et le prix à mon produit
         /*$product->setQuantity(0);
         $product->setPrice(0);*/
 
         //créer un formulaire de produit
-        $form= $this->createForm(new CmsType(),$cms,
+        $form= $this->createForm(new CmsType($user),$cms,
             array(
                 'validation_groups'=> 'new',
                 'attr'=> array(
@@ -79,6 +80,7 @@ class CMSController extends Controller
 
         //si la totalité du formulaire est valide
         if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
             $em = $this->getDoctrine()->getManager();
             $em->persist($cms);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
@@ -100,8 +102,9 @@ class CMSController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
         $cms=$em->getRepository('storeBackendBundle:Cms')->find($id);
-        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
+        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find($user);
         $cms->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
 
 

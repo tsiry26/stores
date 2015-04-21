@@ -24,8 +24,11 @@ class ProductController extends Controller
         // récupère le manager de doctrine : le conteneur d'objets de Doctrine
             $em = $this->getDoctrine()->getManager();
 
+        // récupérer l'utilisateur connecté
+            $user=$this->getUser();
+
             // Je récupère tous les produits
-            $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser(1);//Nom du Bundle: Nom de l'entité
+            $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser($user);//Nom du Bundle: Nom de l'entité
             //=Requête: SELECT*FROM product
 
             return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
@@ -72,16 +75,16 @@ class ProductController extends Controller
         // Je créer une nouvelle objet entité Procduct
         $product=new Product();
 
-        $em = $this->getDoctrine()->getManager();
-        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
-        $product->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
+        $user=$this->getUser();
+       /* $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find($user);*/
+        $product->setJeweler($user);//j'associe mon jewler 1 à mon produit
 
         //J'initialise la quantité et le prix à mon produit
         /*$product->setQuantity(0);
         $product->setPrice(0);*/
 
         //créer un formulaire de produit
-        $form= $this->createForm(new ProductType(1),$product,
+        $form= $this->createForm(new ProductType($user),$product,
             array(
                 'validation_groups'=> 'new',
                 'attr'=> array(
@@ -98,6 +101,7 @@ class ProductController extends Controller
         //si la totalité du formulaire est valide
         if($form->isValid()){
 
+            $em = $this->getDoctrine()->getManager();
             //j'upload mon fichier en faisant appel a la methode upload
             $product->upload();
 
@@ -139,6 +143,7 @@ class ProductController extends Controller
         //Je récupère le doctrine
         $em = $this->getDoctrine()->getManager();
 
+        $user=$this->getUser();
         //je vais rechercher un objet Produit existant par son id
         /*$product=$em->getRepository('storeBackendBundle:Product')->find($id);*/
 
@@ -147,7 +152,7 @@ class ProductController extends Controller
         $product->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit*/
 
         //Je crée un formulaire de produit en associant avec mon produit
-        $form= $this->createForm(new ProductType(1),$id,
+        $form= $this->createForm(new ProductType($user),$id,
             array(
                 'validation_groups'=> 'edit',
                 'attr'=> array(

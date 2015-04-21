@@ -21,7 +21,8 @@ class CategoryController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('storeBackendBundle:Category')->getCategoryByUser(1);
+        $user=$this->getUser();
+        $categories = $em->getRepository('storeBackendBundle:Category')->getCategoryByUser($user);
         return $this->render('storeBackendBundle:Category:list.html.twig',array('categories'=> $categories)); #Main => nom du dossier
     }
 
@@ -57,9 +58,9 @@ class CategoryController extends Controller
     {
         $category=new Category();
 
-        $em = $this->getDoctrine()->getManager();
-        $jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find(1);
-        $category->setJeweler($jeweler);//j'associe mon jewler 1 à mon produit
+        $user=$this->getUser();
+        /*$jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find($user);*/
+        $category->setJeweler($user);//j'associe mon jewler 1 à mon produit
 
         //J'initialise la quantité et le prix à mon produit
         /*$product->setQuantity(0);

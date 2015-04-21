@@ -4,14 +4,13 @@ namespace store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface
-use Symfony\Component\Serializerlizable
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Jeweler
  *
  * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\JewelerRepository")
  */
 class Jeweler implements AdvancedUserInterface, \Serializable
 {
@@ -185,6 +184,19 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     private $dateCreated;
 
+    /**
+     * 
+     * @ORM\ManyToMany(targetEntity="Groups", inversedBy="jeweler")
+     * @ORM\JoinTable(name="jeweler_groups",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="jeweler_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="groups_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $groups;
 
 
     /**
@@ -773,7 +785,10 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array ('ROLE_JEWELER');
+        //return array ('ROLE_JEWELER');
+        // Je retourne mon attribut groups en tableau;
+        // ArrayCollection => Array
+        return $this->groups->toArray();
     }
 
     /**
@@ -838,7 +853,7 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     public function isCredentialsNonExpired()
     {
-        return $this->credentialsExpireAt;
+        return $this->credentialsExpired;
     }
 
     /**
@@ -866,4 +881,44 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add groups
+     *
+     * @param \store\BackendBundle\Entity\Groups $groups
+     * @return Jeweler
+     */
+    public function addGroup(\store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \store\BackendBundle\Entity\Groups $groups
+     */
+    public function removeGroup(\store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
 }
