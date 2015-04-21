@@ -57,12 +57,14 @@ class JewelerSubscribeType extends AbstractType {
             'first_options'  => array(
                 'label' => 'Mot de passe',
                 'attr' => array('value'=>'',
+                                'class' =>'form-control',
                                 'autocomplete' => 'off',
                                  'placeholder' => 'Au moins 6 caractères',
                                  'pattern'=>'.{6,}')),
             'second_options' => array(
                 'label' => 'Confirmation de mot de passe',
                  'attr' => array('value'=>'',
+                                'class' =>'form-control',
                                 'autocomplete' => 'off',
                                  'placeholder' => 'Retaper votre mot de passe',
                                  'pattern'=>'.{6,}')),
