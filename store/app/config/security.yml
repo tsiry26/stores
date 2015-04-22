@@ -14,9 +14,12 @@ security:
     # Roles des utilisateurs qui vont se connecter à l'authentification
     # Les utilisateur sont de role "ROLE_JEWELER"
     role_hierarchy:
-        ROLE_JEWELER:       ROLE_JEWELER #Role des bijoutiers quant ils se connecteront
+        ROLE_EDITOR:        ROLE_EDITOR
+        ROLE_COMMERCIAL:    ROLE_COMMERCIAL
+        ROLE_JEWELER:       [ROLE_JEWELER, ROLE_EDITOR, ROLE_COMMERCIAL] #Role des bijoutiers quant ils se connecteront
         ROLE_USER:        [ROLE_USER, ROLE_JEWELER]  #si on veut ajouter un ou plusieurs autre rôle
         ROLE_ADMIN:       [ROLE_ADMIN, ROLE_USER]
+
     ###
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     # Fournisseurs d'authentification
@@ -71,4 +74,6 @@ security:
     # Le role ROLE_JEWELER sera lié à notre firewall store_backend
     ###
     access_control:
-        - { path: ^/administration, roles: ROLE_JEWELER}
+        #- Methode propre est de bloquer au niveau du routing
+        #- { path: ^/administration/products, roles: [ROLE_COMMERCIAL]}
+        - { path: ^/administration, roles: [ROLE_JEWELER, ROLE_EDITOR, ROLE_COMMERCIAL]}

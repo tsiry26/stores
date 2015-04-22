@@ -1,0 +1,12 @@
+{% extends "storeBackendBundle::layout.html.twig" %}
+
+{#Cette fonction va me chercher un thème de formulaire#}
+{% form_theme form 'storeBackendBundle:Partial:form.html.twig' %}
+
+{% block titlepage %}
+    <i class="fa fa-plus"></i> Creation de produit
+{% endblock %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}

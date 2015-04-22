@@ -19,9 +19,15 @@
 
     <div id="main-wrapper">
 
-        {#inclusion des vus partiels#}
+        {#Si l'utilisateur est connecté#}
+        {#L'utilisateur est accessible depuis Twig#}
+        {% if app.user.id is defined %}
+            {#inclusion des vus partiels#}
         {{ include ("storeBackendBundle:Partial:main_navigation.html.twig") }}
+        {% endif %}
+        {% if app.user.id is defined %}
         {{ include ("storeBackendBundle:Partial:main_menu.html.twig") }}
+        {% endif %}
 
         <div id="content-wrapper">
             {{ include ("storeBackendBundle:Partial:flashdatas.html.twig") }}

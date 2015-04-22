@@ -60,7 +60,7 @@ class CategoryController extends Controller
 
         $user=$this->getUser();
         /*$jeweler=$em->getRepository('storeBackendBundle:Jeweler')->find($user);*/
-        $category->setJeweler($user);//j'associe mon jewler 1 à mon produit
+        $category->setJeweler($user);//j'associe mon jewler 1 à mon category
 
         //J'initialise la quantité et le prix à mon produit
         /*$product->setQuantity(0);

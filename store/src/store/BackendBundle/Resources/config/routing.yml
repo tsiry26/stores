@@ -31,3 +31,7 @@ store_backend_cms:
 store_backend_suppliers:
     resource: "@storeBackendBundle/Resources/config/modules/supplier.yml"
     prefix: /suppliers
+
+store_backend_sliders:
+    resource: "@storeBackendBundle/Resources/config/modules/slider.yml"
+    prefix: /sliders

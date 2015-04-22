@@ -3,12 +3,12 @@
 namespace store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Slider
  *
  * @ORM\Table(name="slider", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="store\BackendBundle\Repository\SliderRepository")
  */
 class Slider
 {
@@ -54,12 +54,43 @@ class Slider
      *
      * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
      */
     private $product;
 
 
+    /**
+     * @Assert\Image(
+     *     minWidth = 100,
+     *     maxWidth = 3000,
+     *     minHeight = 100,
+     *     maxHeight = 2500,
+     *     maxWidthMessage = "La largeur est trop grande",
+     *     minWidthMessage = "La largeur est trop petite",
+     *     maxHeightMessage = "La hauteur est trop grande",
+     *     minHeightMessage = "La hauteur est trop petite",
+     * )
+     * Attribut qui représentera mon fichier upload
+     * @var
+     */
+    protected  $file;
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 
     /**
      * Set caption
@@ -189,6 +220,53 @@ class Slider
     /**
      * @return string
      */
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image ? null : $this->getUploadRootDir().'/'.$this->image;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image ? null : $this->getUploadDir().'/'.$this->image;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/slider';
+    }
+
+    public function upload()
+    {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->file) {
+            return;
+        }
+
+        // utilisez le nom de fichier original ici mais
+        // vous devriez « l'assainir » pour au moins éviter
+        // quelconques problèmes de sécurité
+
+        // la méthode « move » prend comme arguments le répertoire cible et
+        // le nom de fichier cible où le fichier doit être déplacé
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        // définit la propriété « path » comme étant le nom de fichier où vous
+        // avez stocké le fichier
+        $this->image = $this->file->getClientOriginalName();
+
+        // « nettoie » la propriété « file » comme vous n'en aurez plus besoin
+        $this->file = null;
+    }
+
     public function __toString(){
         return $this->caption;
     }

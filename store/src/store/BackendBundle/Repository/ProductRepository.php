@@ -69,4 +69,14 @@ class ProductRepository extends EntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function getProductByUserBuilder($user)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.jeweler = :user')
+            ->orderBy('p.title','ASC')
+            ->setParameter('user', $user);
+
+        return $queryBuilder;
+    }
+
 }

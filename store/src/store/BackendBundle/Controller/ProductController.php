@@ -8,19 +8,27 @@ use store\BackendBundle\Entity\Product;
 use store\BackendBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Class ProductController
+ * @Security("has_role('ROLE_COMMERCIAL')")
  * @package store\BackendBundle\Controller
  */
 class ProductController extends Controller
 {
     /**
      * list my product
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction()
     {
+
+        //Méthode numéro1: restreindre l'accès au niveau de ma methode de controller
+       /* if (false === $this->get('security.context')->isGranted('ROLE_COMMERCIAL')) {
+            throw new AccessDeniedException("Accès interdit pour ce type de contenu");
+        }*/
+
         // récupère le manager de doctrine : le conteneur d'objets de Doctrine
             $em = $this->getDoctrine()->getManager();
 
