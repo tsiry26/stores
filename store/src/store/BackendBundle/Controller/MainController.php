@@ -18,21 +18,29 @@ class MainController extends Controller
     public function indexAction()
    {
        $em=$this->getDoctrine()->getManager();
+       $user=$this->getUser();
        // Je récupère le nb de produits de mon bijoutier numéro 1
        // Je fais appel à mon repository ProductRepository
        // et à la fonction getCountByUser
-       $nbprod=$em->getRepository('storeBackendBundle:Product')->getCountByUser(1);
-       $nbcat=$em->getRepository('storeBackendBundle:Category')->getCountByUser(1);
-       $nbcms=$em->getRepository('storeBackendBundle:Cms')->getCountByUser(1);
-       $nbcom=$em->getRepository('storeBackendBundle:Comment')->getCountByUser(1);
-       $nborders=$em->getRepository('storeBackendBundle:Orders')->getCountByUser(1);
-       $lastcom=$em->getRepository('storeBackendBundle:Comment')->getlastComment(1);
-       $sum=$em->getRepository('storeBackendBundle:Product')->getSumProduct(1);
-       $lastmsg=$em->getRepository('storeBackendBundle:Message')->getLastMessage(1);
-       $lastorders=$em->getRepository('storeBackendBundle:Orders')->getLastOrders(1);
-       $jeweler=$em->getRepository('storeBackendBundle:JewelerMeta')->getJewelerDetails(1);
-       $catgpop=$em->getRepository('storeBackendBundle:Category')->getCategPopular(1);
-       $promotion=$em->getRepository('storeBackendBundle:Business')->getPromotion(1);
+       $nbprod=$em->getRepository('storeBackendBundle:Product')->getCountByUser($user);
+       $nbcat=$em->getRepository('storeBackendBundle:Category')->getCountByUser($user);
+       $nbcms=$em->getRepository('storeBackendBundle:Cms')->getCountByUser($user);
+       $nbcom=$em->getRepository('storeBackendBundle:Comment')->getCountByUser($user);
+       $nborders=$em->getRepository('storeBackendBundle:Orders')->getCountByUser($user);
+       $lastcom=$em->getRepository('storeBackendBundle:Comment')->getlastComment($user);
+       $sum=$em->getRepository('storeBackendBundle:Product')->getSumProduct($user);
+       $lastmsg=$em->getRepository('storeBackendBundle:Message')->getLastMessage($user);
+       $lastorders=$em->getRepository('storeBackendBundle:Orders')->getLastOrders($user);
+       $jeweler=$em->getRepository('storeBackendBundle:JewelerMeta')->getJewelerDetails($user);
+       $catgpop=$em->getRepository('storeBackendBundle:Category')->getCategPopular($user);
+       $promotion=$em->getRepository('storeBackendBundle:Business')->getPromotion($user);
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('now'));
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-1 month'));
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-2 month'));
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-3 month'));
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-4 month'));
+       $statorder[]=$em->getRepository('storeBackendBundle:Orders')->getOrderGraphByUser($user, new \DateTime('-5 month'));
+
       return $this->render('storeBackendBundle:Main:index.html.twig',
           array(
               'nbprod'=>$nbprod,
@@ -47,6 +55,7 @@ class MainController extends Controller
               'jeweler'=>$jeweler,
               'catgpop'=>$catgpop,
               'promotion'=>$promotion,
+              'statorder'=>$statorder
           ));
    }
 }

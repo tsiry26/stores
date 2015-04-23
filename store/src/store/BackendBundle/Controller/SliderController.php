@@ -108,4 +108,18 @@ class SliderController extends Controller
 
         return $this->render('storeBackendBundle:Slider:edit.html.twig',array("form"=> $form->createView()));
     }
+
+    public function removeAction($id)
+    {
+        // récupère le manager de doctrine : le conteneur d'objets de Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        // Je récupère tous les produits de ma base de données avec la méthode findAll
+        $slider = $em->getRepository('storeBackendBundle:Slider')->find($id);
+
+        $em->remove($slider);
+        $em->flush();
+
+        return $this->redirectToRoute('store_backend_slider_list');
+    }
 }

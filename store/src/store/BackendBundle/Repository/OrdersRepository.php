@@ -42,4 +42,52 @@ class OrdersRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+   /* public function getOrderByUser($user = null)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT o
+                FROM storeBackendBundle:Orders o
+                WHERE o.jeweler= :user"
+            )
+            ->setParameter('user',$user);
+
+        return $query->getResult();
+    }*/
+
+    /**
+     * Requête qui sort la commande des 6 derniers mois
+     * SELECT COUNT(id)
+     * FROM 'orders AS o
+     * WHERE o.date
+     * BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH)
+     * AND NOW()
+     * GROUP BY MONTH (o.date)
+     */
+    public function getOrderGraphByUser($user, $dateBegin)
+    {
+        //compter le nombre de commande pour un jeweler préçis et pour un mois préçis
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT COUNT (o) AS nb, DATE_FORMAT(:dateBegin, '%Y-%m') AS d
+                FROM storeBackendBundle:Orders o
+                WHERE o.jeweler = :user
+                AND MONTH (o.dateCreated) = :month
+                AND YEAR (o.dateCreated) = :year
+                "
+            )
+            ->setParameters(array(
+                'user' => $user,
+                'dateBegin' => $dateBegin->format('Y-m-d'),
+                'month' => $dateBegin->format('m'),
+                'year' => $dateBegin->format('Y')
+            ));
+        //retourne 1 seul résultat
+        return $query->getSingleResult();
+
+    }
+
 } 

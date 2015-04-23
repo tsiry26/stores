@@ -23,7 +23,16 @@ class Slider
 
     /**
      * @var string
-     *
+     * @var string
+     * @Assert\NotBlank(
+     *       message="le caption doit être remplis",
+     * )
+     * @Assert\Length(
+     *     min="5",
+     *     max="1000",
+     *     minMessage="Votre caption doit faire au moins {{ limit }} caractères",
+     *     maxMessage="Votre caption ne peut pas être plus long que {{ limit }} caractères",
+     * )
      * @ORM\Column(name="caption", type="text", nullable=true)
      */
     private $caption;
