@@ -43,7 +43,7 @@ class StoreBackendExtension extends \Twig_Extension
 
     public function getName()
     {
-
+        return 'store_backend_extension';
     }
 
 } 

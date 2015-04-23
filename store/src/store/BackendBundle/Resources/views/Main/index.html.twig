@@ -542,13 +542,14 @@
                     <td>{{ cmd.last.address }}</td>
                     <td>{{ cmd.last.total }}</td>
                     <td>
-                        {% if cmd.last.state==0 %}
+                        {#{% if cmd.last.state==0 %}
                             <span class="label label-danger ticket-label">Error</span>
                         {% elseif cmd.last.state==1 %}
                             <span class="label label-success ticket-label">Accepted</span>
                         {% else %}
                             <span class="label label-info ticket-label">Deliver</span>
-                        {% endif %}
+                        {% endif %}#}
+                        {{ cmd.last.state|state|raw }}
                     </td>
                 </tr>
                 {% endfor %}
