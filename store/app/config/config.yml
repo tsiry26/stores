@@ -81,3 +81,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Swiftmailer Configuration
+#swiftmailer:
+#   transport: smtp #Serveur SMTP
+#   encryption: ssl #Connexion Crypter
+#   auth_mode: login #Authentification via le compte
+#   host: smtp.gmail.com #  Adresse du serveur GMAIL
+#   username: nialy@live.fr #GMAIL compte login
+#   password: tsisry030389 #Mot de passe

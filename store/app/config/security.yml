@@ -50,6 +50,13 @@ security:
         ###
         store_backend:
             pattern:    ^/administration # l'uri en REGEX derriere mon parfeu
+
+            remember_me:
+                key:    "%secret%"
+                lifetime: 31536000 #365 jours en seconde
+                path:    /
+                domain:  ~ #Prend la valeur par défaut du domaine courant
+
             form_login:
                 #Le chemin vers la vérification du login
                 check_path: store_backend_security_login_check

@@ -17,7 +17,15 @@ class MainController extends Controller
      */
     public function indexAction()
    {
+       //$this->get()=>accède au conteneur de service
+       //et récupere le service store.backend.email
+       /*$mail = $this->get('store.backend.email');
+       $mail->send();*/ //appel de ma méthode pour envoyer un email
+
+
        $em=$this->getDoctrine()->getManager();
+
+       //Récupérer l'utilisateur
        $user=$this->getUser();
        // Je récupère le nb de produits de mon bijoutier numéro 1
        // Je fais appel à mon repository ProductRepository

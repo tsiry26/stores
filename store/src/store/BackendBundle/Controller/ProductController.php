@@ -126,6 +126,12 @@ class ProductController extends Controller
             //je récupère la quantité
             $quantity=$product->getQuantity();
 
+            if($quantity<5){
+                //$this->get()=>accède au conteneur de service
+                //la méthode notify sera executer avec un message de bienvenue
+                $this->get('store.backend.notification')->notify(' Attention, votre produit'.' '.$id->getTitle().' est bientôt épuisé');
+            }
+
             if($quantity==1)
             {
                 $this->get('session')->getFlashBag()->add(
@@ -180,6 +186,12 @@ class ProductController extends Controller
             $em->persist($id);//j'enregistre mon objet product dans doctrine
             $em->flush();//j'envoi ma requete d'insert à mon table product
 
+            //Si ma quantité de produit est inférieur à 5
+            if($id->getQuantity()<5){
+                //$this->get()=>accède au conteneur de service
+                //la méthode notify sera executer avec un message de bienvenue
+                $this->get('store.backend.notification')->notify(' Attention, votre produit'.' '.$id->getTitle().' est bientôt épuisé');
+            }
             return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
 
         }

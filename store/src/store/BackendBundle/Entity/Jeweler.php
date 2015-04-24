@@ -234,6 +234,11 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     private $groups;
 
+    /**
+     * @var
+     * @ORM\Column(name="date_auth", type="datetime", nullable=true)
+     */
+    private $dateAuth;
 
     /**
      * Set username
@@ -992,5 +997,28 @@ class Jeweler implements AdvancedUserInterface, \Serializable
                 null
             );
         }
+    }
+
+    /**
+     * Set dateAuth
+     *
+     * @param \DateTime $dateAuth
+     * @return Jeweler
+     */
+    public function setDateAuth($dateAuth)
+    {
+        $this->dateAuth = $dateAuth;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAuth
+     *
+     * @return \DateTime 
+     */
+    public function getDateAuth()
+    {
+        return $this->dateAuth;
     }
 }
