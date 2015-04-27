@@ -28,8 +28,8 @@ class Email
      * J'ai besion du service swift mailer et du service Twig
      */
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig){
-        $this->mailer = $mailer; //Je stoque mon nom
-        $this->twig=$twig;//je sto
+        $this->mailer = $mailer; //Je stoque mon
+        $this->twig=$twig;//je stoque mon
     }
     /**
      * Fonction qui envoi un email à un utilisateur

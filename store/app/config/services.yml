@@ -15,7 +15,7 @@ services:
           class: store\BackendBundle\Listener\AuthentificationListener
 
           #Nom des services injecté en constructeur de ma classe
-          arguments: ["@doctrine.orm.entity_manager", "@security.context"]
+          arguments: ["@doctrine.orm.entity_manager", "@security.context", "@store.backend.notification"]
 
           #Etende le mécanisme de sécurity au niveau de l'interaction login
           #avec un mécanisme d'écouteur
@@ -32,6 +32,44 @@ services:
             #classe avec namespace
               class: store\BackendBundle\Notification\Notification
               arguments: ["@session"]
-#    service_name:
+
+  store.backend.listener.product.persist:
+              class: store\BackendBundle\Listener\ProductListener
+
+              # Argument du constructeur
+              # c'est le service de notification que l'on a crée juste en dessus
+              # ATTENTION l'injection des dépendances se fait si mon service n'est pas déjà injecté.
+              # notament par le tag qui est associ à un service
+              arguments: ["@store.backend.notification"]
+
+              # ma classe utilisera le mécanisme d'écouteur de symfony
+              tags:
+
+              #name: correspond au mécanisme ou ma classe sera affectée
+              #et plus particulièrement au mécanisme d'écouteur de doctrine
+
+              #event: sera l'événement déclencheur de mon service
+              #et plus particulièrement à la modification d'un objet
+
+              #methode: la méthode que sera appellé après déclenchement de mon event
+              #et plus particulièrement la méthode appelé dans mon service: postUpdate()
+
+              # Evenement à doctrine: (Lifecycle)
+              # Doctrine à une liste exhaustive d'evenement appelé "LifeCydle"
+              # Cycle de vie d'un objet en Doctrine
+              # +preRemove
+              # +postRemove
+              # +prePersist quand je crée mon objet en base de donné
+              # +postPersist
+              # +preUpdate quand je modifie mon objet en base de donné
+              # +postUpdate
+              # +postLoad
+              # +loadClassMetadata
+
+                - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+                - { name: doctrine.event_listener, event: postPersist, method: postPersist }
+                - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+                - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+# service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

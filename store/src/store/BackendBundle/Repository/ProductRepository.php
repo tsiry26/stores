@@ -79,4 +79,20 @@ class ProductRepository extends EntityRepository
         return $queryBuilder;
     }
 
+    public function getProductsQuantityIsLower($user=null)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT p
+                FROM storeBackendBundle:Product p
+                WHERE p.jeweler= :user
+                AND p.quantity < 5"
+            )
+            ->setParameter('user',$user);
+
+        // retourne 1 résultat ou null
+        return $query->getResult();
+    }
+
 }

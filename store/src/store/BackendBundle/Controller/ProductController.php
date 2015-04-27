@@ -126,19 +126,28 @@ class ProductController extends Controller
             //je récupère la quantité
             $quantity=$product->getQuantity();
 
-            if($quantity<5){
+           /* if($quantity==1){
                 //$this->get()=>accède au conteneur de service
-                //la méthode notify sera executer avec un message de bienvenue
-                $this->get('store.backend.notification')->notify(' Attention, votre produit'.' '.$id->getTitle().' est bientôt épuisé');
+                //la méthode notify ajout une notification
+                $this->get('store.backend.notification')->notify($product->getId(),
+                    "Votre produit ".$product->getTitle()." est unique",
+                    "product",
+                    "danger");
             }
+            else if($quantity<5){
+                //$this->get()=>accède au conteneur de service
+                //la méthode notify ajout une notification
+                $this->get('store.backend.notification')->notify($product->getId(),
+                                                             "La quantité du produit ".$product->getTitle()." est faible",
+                                                             "product",
+                                                                "warning");
+            }*/
 
-            if($quantity==1)
-            {
-                $this->get('session')->getFlashBag()->add(
-                    'warning',
-                    'Votre bijou est un produit unique'
-                );
-            }
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a bien été créer'
+            );
+
             return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
 
         }
@@ -187,13 +196,29 @@ class ProductController extends Controller
             $em->flush();//j'envoi ma requete d'insert à mon table product
 
             //Si ma quantité de produit est inférieur à 5
-            if($id->getQuantity()<5){
+            /*if($id->getQuantity()==1){
                 //$this->get()=>accède au conteneur de service
-                //la méthode notify sera executer avec un message de bienvenue
-                $this->get('store.backend.notification')->notify(' Attention, votre produit'.' '.$id->getTitle().' est bientôt épuisé');
+                //la méthode notify ajout une notification
+                $this->get('store.backend.notification')->notify($id->getId(),
+                    "Votre produit ".$id->getTitle()." est unique",
+                    "product",
+                    "danger");
             }
-            return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
+            else if($id->getQuantity()<5){
+                //$this->get()=>accède au conteneur de service
+                //la méthode notify ajout une notification
+                $this->get('store.backend.notification')->notify($id->getId(),
+                    "Attention votre produit ".$id->getTitle()." est bientôt épuisé",
+                    "product",
+                    "warning");
+            }*/
 
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Votre produit a bien été modifié'
+            );
+
+            return $this->redirectToRoute('store_backend_product_list'); //redirection selon la route
         }
 
         return $this->render('storeBackendBundle:Product:edit.html.twig',array("form"=> $form->createView()));
