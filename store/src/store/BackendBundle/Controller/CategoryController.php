@@ -8,6 +8,7 @@ use store\BackendBundle\Entity\Category;
 use store\BackendBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Class CategoryController
  *
@@ -99,6 +100,9 @@ class CategoryController extends Controller
         return $this->render('storeBackendBundle:Category:new.html.twig',array("form"=> $form->createView()));
     }
 
+    /**
+     * @Security("is_granted('',id)")
+     */
     public function editAction(Request $request, $id)
     {
 

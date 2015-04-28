@@ -1,20 +1,32 @@
 {% extends "storeBackendBundle::layout.html.twig" %}
 {% block titlepage %}
-    <i class="fa fa-bookmark"></i> Liste CMS
+    {# Le filtre trans de twig va me chercher la traduction pour le texte Pages CMS #}
+    <i class="fa fa-bookmark"></i> {{ "cms.list.title"|trans }}
 {% endblock %}
 {% block content %}
+    <div class="row">
+        <div class="btn-group pull-right">
+            {#la variable _locale que j'envoi en paramètre dans la route sera la langue affecté à mon utilisateur#}
+            <a href="{{ path('store_backend_cms_list', {'_locale':'en'}) }}" class="btn btn-primary btn-outline {% if app.request.get('_locale') == 'en' %} active {% endif %}">Anglais</a>
+            <a href="{{ path('store_backend_cms_list', {'_locale':'fr'}) }}" class="btn btn-primary btn-outline {% if app.request.get('_locale') == 'fr' %} active {% endif %}">Français</a>
+        </div>
+    </div>
     <div class="row">
         <a href="{{ path('store_backend_cms_new') }}" class="pull-right btn btn-primary btn-lg btn-rounded">Ajouter une page CMS</a>
     </div>
     <div class="panel">
     <div class="panel-body">
     <table class="table table-bordered">
+        <div class="alert alert-info alert-dark">
+            {#Filtre transchoice permet de choisir#}
+            {{ "cms.list.nb"|transchoice(2) }}
+        </div>
         <thead>
-            <th>Title</th>
-            <th>Active</th>
-            <th>Summary</th>
-            <th>Description</th>
-            <th>State</th>
+            <th>{{ "cms.list.table.th.title"|trans }}</th>
+            <th>{{ "cms.list.table.th.active"|trans }}</th>
+            <th>{{ "cms.list.table.th.summary"|trans }}</th>
+            <th>{{ "cms.list.table.th.description"|trans }}</th>
+            <th>{{ "cms.list.table.th.state"|trans }}</th>
         </thead>
     <tbody>
     {% for cms in cms %}

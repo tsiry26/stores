@@ -159,7 +159,10 @@ class ProductController extends Controller
     /**
      * Param convertir un int en objet Product directement
      * Je récupère l'objet Request qui contient toutes mes données en GET, POST...
-     *
+     * is_granted
+     * 1er argument : attribut à vide
+     * 2eme argument Objet:Produit
+     * @Security("is_granted('',id)")
      */
     public function editAction(Request $request,Product $id)
     {

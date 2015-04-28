@@ -27,4 +27,26 @@ class MessageRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Récupère les messages de l'utilisateur
+     * @param $user
+     * @param int $limit
+     * @return mixed
+     */
+    public function getLastMessagesByUser($user, $limit=5)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT m
+                FROM storeBackendBundle:Message m
+                WHERE m.jeweler= :user
+                ORDER BY m.id DESC"
+            )
+            ->setParameter('user',$user)
+            ->setMaxResults($limit);
+
+        return $query->getResult();
+    }
 } 

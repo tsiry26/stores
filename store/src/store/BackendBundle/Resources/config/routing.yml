@@ -25,7 +25,12 @@ store_backend_categories:
 #Pages cms
 store_backend_cms:
     resource: "@storeBackendBundle/Resources/config/modules/cms.yml"
-    prefix: /cms
+    #Ajouter mon argument {_locale} pour traduire tout mon module cms
+    #au niveau du routing
+    #{_locale}:Argument spéciale au routing reconnus par le systeme d'internationalisation de Symfony
+    prefix: /{_locale}/cms
+    requirements:
+        _locale: en|fr|es
 
 #Pages supplier
 store_backend_suppliers:

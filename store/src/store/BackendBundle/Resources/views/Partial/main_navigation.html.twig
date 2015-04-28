@@ -102,7 +102,15 @@
             <a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
         </div> <!-- / .dropdown-menu -->
     </li>
-    <li class="nav-icon-btn nav-icon-btn-success dropdown">
+
+        {# Include mes messages depuis le controlleur #}
+        {# render() va appeler le controlleur layout et son action my message #}
+        {# à la différence de include qui va inclure une vue statique,
+          render() va appeler dynamiquement un controlleur et une action de controlleur #}
+        {{ render(controller('storeBackendBundle:Layout:mymessages')) }}
+        {{ render(controller('storeBackendBundle:Layout:myorders')) }}
+
+   {# <li class="nav-icon-btn nav-icon-btn-success dropdown">
         <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
             <span class="label">10</span>
             <i class="nav-icon fa fa-envelope"></i>
@@ -118,6 +126,7 @@
             });
         </script>
         <!-- / Javascript -->
+
 
         <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
             <div class="messages-list" id="main-navbar-messages">
@@ -135,7 +144,7 @@
             </div> <!-- / .messages-list -->
             <a href="#" class="messages-link">MORE MESSAGES</a>
         </div> <!-- / .dropdown-menu -->
-    </li>
+    </li>#}
     <!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
     <li>

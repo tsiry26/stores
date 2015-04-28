@@ -90,4 +90,20 @@ class OrdersRepository extends EntityRepository
 
     }
 
+    public function getLastOrdersByUser($user, $limit=5)
+    {
+        $query=$this->getEntityManager()
+            ->createQuery(
+                "
+                SELECT o
+                FROM storeBackendBundle:Orders o
+                WHERE o.jeweler= :user
+                ORDER BY o.dateCreated DESC"
+            )
+            ->setParameter('user',$user)
+            ->setMaxResults($limit);
+
+        return $query->getResult();
+    }
+
 } 
