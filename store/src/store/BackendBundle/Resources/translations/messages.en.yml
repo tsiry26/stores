@@ -1,12 +1,20 @@
 #je vais pouvoir traduire mes textes des vues et mes textes de Controllers
-cms:
-    list:
-        title: CMS Pages of my products
-        nb: 'There is %count% page founded | There are %count% pages founded'
-        table:
-            th:
-                title: Title of my product
-                active: Active of my product
-                summary: Summary of my product
-                description: Description of my product
-                state: State of my product
+list:
+    choice: Choose your language please %username%
+#        title: CMS Pages of my products
+#        nb: 'There is %count% page founded | There are %count% pages founded'
+#        table:
+#            th:
+#                title: Title of my product
+#                active: Active of my product
+#                summary: Summary of my product
+#                description: Description of my product
+#                state: State of my product
+#
+#        btn:
+#            ajouter: Add a CMS Page
+#            detail: Detail
+#            voir: View
+#            editer: edit
+#            suppr: remove
+#

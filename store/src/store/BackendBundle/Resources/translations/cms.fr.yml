@@ -1,0 +1,28 @@
+cms:
+    flashdatas:
+            activate: Votre page est activé
+            desactivate: Votre page est désactivé
+    list:
+        title: Pages CMS
+        nb: 'Il y a %count% page trouvée | Il y a %count% pages trouvées'
+        table:
+            th:
+                title: Titre de mes produits
+                active: Produits activés
+                summary: Résumé des produits
+                description: Descriptions des produits
+                state: Etat de mes produits
+
+        btn:
+            ajouter: Ajouter un page CMS
+            detail: Detail
+            voir: Voir
+            editer: Editer
+            suppr: Supprimer
+
+    form:
+            title: Titre
+            summary: Résumé
+            placeholder:
+                title: Entrer votre titre
+                summary: Entrer votre résumé

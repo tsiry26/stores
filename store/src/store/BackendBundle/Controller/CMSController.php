@@ -18,12 +18,28 @@ class CMSController extends Controller
      * list my cms
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user=$this->getUser();
         $cms = $em->getRepository('storeBackendBundle:Cms')->getCmsByUser($user);
-        return $this->render('storeBackendBundle:CMS:list.html.twig', array('cms'=>$cms)); #Main => nom du dossier
+
+        // Paginer mes produits
+        // je récupere le service knp_paginator qui me sert à paginer
+        $paginator  = $this->get('knp_paginator');
+
+        //j'utilise la méthode paginate du service knp_paginator
+        $pagination = $paginator->paginate(
+            $cms, //je lui envoi mon tableau de produits
+
+            // recupére le numéro de page sur lequel je me trouve et par défaut il prendra la page numéro 1
+            $request->query->get('page', 1)/*page number*/,
+
+            //je limite à 5 mes résultats de produits (5 par page)
+            1/*limit per page*/
+        );
+
+        return $this->render('storeBackendBundle:CMS:list.html.twig', array('cms'=>$pagination)); #Main => nom du dossier
     }
 
     /**
@@ -149,10 +165,17 @@ class CMSController extends Controller
         $em->persist($id);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'success',
-            'Votre page cms a été bien modifié'
-        );
+        if($action == 1){
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans('cms.flashdatas.activate', array(), 'cms')
+            );
+        }else{
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans('cms.flashdatas.desactivate', array(), 'cms')
+            );
+        }
 
         return $this->redirectToRoute('store_backend_cms_list');
     }

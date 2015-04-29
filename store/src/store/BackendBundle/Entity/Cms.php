@@ -25,14 +25,14 @@ class Cms
     /**
      * @var string
      *@Assert\NotBlank(
-     *       message="le titre doit être remplis",
+     *       message="cms.form.validation.title.notblank",
      *       groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="5",
      *     max="500",
-     *     minMessage="Votre titre doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre titre ne peut pas être plus long que {{ limit }} caractères",
+     *     minMessage="cms.form.validation.title.length.min",
+     *     maxMessage="cms.form.validation.title.length.max",
      *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
@@ -42,14 +42,14 @@ class Cms
     /**
      * @var string
      *@Assert\NotBlank(
-     *       message="le résumé doit être remplis",
+     *       message="cms.form.validation.summary.notblank",
      *      groups={"new", "edit"}
      * )
      *@Assert\Length(
      *     min="10",
      *     max="1000",
-     *     minMessage="Votre résumé doit faire au moins {{ limit }} caractères",
-     *     maxMessage="Votre résumé ne peut pas être plus long que {{ limit }} caractères",
+     *     minMessage="cms.form.validation.summary.length.min",
+     *     maxMessage="cms.form.validation.summary.length.max",
      *     groups={"new", "edit"}
      * )
      * @ORM\Column(name="summary", type="text", nullable=true)

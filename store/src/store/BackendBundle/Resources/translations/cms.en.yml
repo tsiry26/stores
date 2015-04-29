@@ -1,0 +1,27 @@
+cms:
+    flashdatas:
+        activate: Your page is activate
+        desactivate: Your page is desactivate
+    list:
+        title: CMS Pages of my products
+        nb: 'There is %count% page founded | There are %count% pages founded'
+        table:
+            th:
+                title: Title of my product
+                active: Active of my product
+                summary: Summary of my product
+                description: Description of my product
+                state: State of my product
+
+        btn:
+            ajouter: Add a CMS Page
+            detail: Detail
+            voir: View
+            editer: edit
+            suppr: remove
+    form:
+        title: Title
+        summary: Summary
+        placeholder:
+            title: Enter your title
+            summary: Enter your summary

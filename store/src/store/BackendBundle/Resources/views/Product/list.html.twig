@@ -8,15 +8,23 @@
     </div>
     <div class="panel">
     <div class="panel-body">
+        {# Me compte la liste de tous mes produits #}
+        <div class="count">
+           {{ products.getTotalItemCount }} produits trouvés
+        </div>
+        <hr/>
     <table class="table table-bordered">
     <thead>
-    <th>Title</th>
-    <th>Date de création</th>
+    {# 1er argument, le tableau de produits,
+       2e arguments le label de la colone
+       3e argument la colonne sur lequelle le tri va s'effectuer#}
+    <th>{{ knp_pagination_sortable(products, 'Titr  e', 'p.title') }}</th>
+    <th>{{ knp_pagination_sortable(products, 'Date de création', 'p.dateCreated') }}</th>
     <th>Active</th>
-    <th>Ref</th>
+    <th>{{ knp_pagination_sortable(products, 'Référence', 'p.ref') }}</th>
     <th>Page de couverture</th>
-    <th>Quantity</th>
-    <th>Price</th>
+    <th>{{ knp_pagination_sortable(products, 'Quantity', 'p.quantity') }}</th>
+    <th>{{ knp_pagination_sortable(products, 'Prix', 'p.price') }}</th>
     <th>Taxe</th>
     <th>Jewerly</th>
     </thead>
@@ -67,6 +75,9 @@
 
     </tbody>
    </table>
+        <div class="navigation">
+            {{ knp_pagination_render(products) }}
+        </div>
     </div>
     </div>
 {% endblock %}

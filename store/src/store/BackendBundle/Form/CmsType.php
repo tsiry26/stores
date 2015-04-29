@@ -17,21 +17,21 @@ class CmsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', null, array(
-            'label'=>'Titre de la Catégorie',
+            'label'=> 'cms.form.title',
             'required'=> true,
             'attr'=>array(
                 'class'=>'form-control',
-                'placeholder'=>'Mettre un titre soigné',
+                'placeholder'=>'cms.form.placeholder.title',
                 'pattern'=>'[a-zA-Z0-9- ]{5,}'
             )
         ));
 
         $builder->add('summary', null, array(
-            'label'=>'Petit résumé',
+            'label'=>'cms.form.summary',
             'required'=> true,
             'attr'=>array(
                 'class'=>'form-control',
-                'placeholder'=>"Résumé de votre page cms"
+                'placeholder'=>'cms.form.placeholder.summary'
             )
         ));
 
@@ -88,6 +88,7 @@ class CmsType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'=>'store\BackendBundle\Entity\Cms',
+            'translation_domain' => 'cms'
         ));
     }
 

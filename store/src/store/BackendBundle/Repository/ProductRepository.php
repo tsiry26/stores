@@ -27,7 +27,8 @@ class ProductRepository extends EntityRepository
         )
             ->setParameter('user',$user);
 
-        return $query->getResult();
+        //Je dois retourner la requête pour le tri
+        return $query/*->getResult()*/;
     }
 
     /**

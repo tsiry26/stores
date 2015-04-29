@@ -1,0 +1,13 @@
+cms:
+    form:
+        validation:
+            title:
+                notblank: Your title is empty
+                length:
+                    min: Your title must have at least {{ limit }} letters
+                    max: Your title must have at most {{ limit }} letters
+            summary:
+                notblank: Your summary is empty
+                length:
+                     min: Your summary must have at least {{ limit }} letters
+                     max: Your summary must have at most {{ limit }} letters

@@ -21,7 +21,7 @@ class ProductController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
 
         //Méthode numéro1: restreindre l'accès au niveau de ma methode de controller
@@ -39,7 +39,23 @@ class ProductController extends Controller
             $products = $em->getRepository('storeBackendBundle:Product')->getProductByUser($user);//Nom du Bundle: Nom de l'entité
             //=Requête: SELECT*FROM product
 
-            return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $products));
+           // Paginer mes produits
+            // je récupere le service knp_paginator qui me sert à paginer
+            $paginator  = $this->get('knp_paginator');
+
+        //j'utilise la méthode paginate du service knp_paginator
+            $pagination = $paginator->paginate(
+                $products, //je lui envoi mon tableau de produits
+
+                // recupére le numéro de page sur lequel je me trouve et par défaut il prendra la page numéro 1
+                $request->query->get('page', 1)/*page number*/,
+
+                //je limite à 5 mes résultats de produits (5 par page)
+                5/*limit per page*/
+            );
+
+
+        return $this->render('storeBackendBundle:Product:list.html.twig',array('products'=> $pagination));
     }
 
     /**
